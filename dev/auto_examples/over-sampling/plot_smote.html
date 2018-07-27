@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="../../_static/css/imbalanced-learn.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/imbalanced-learn.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -203,6 +202,8 @@
 <span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="View documentation for sklearn.decomposition.PCA"><span class="n">PCA</span></a>
 
 <span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">BorderlineSMOTE</span>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">SVMSMOTE</span>
 
 <span class="k">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
 
@@ -235,8 +236,8 @@
 <span class="n">X_vis</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="c1"># Apply regular SMOTE</span>
-<span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;borderline1&#39;</span><span class="p">,</span> <span class="s1">&#39;borderline2&#39;</span><span class="p">,</span> <span class="s1">&#39;svm&#39;</span><span class="p">]</span>
-<span class="n">sm</span> <span class="o">=</span> <span class="p">[</span><a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kind</span><span class="p">]</span>
+<span class="n">sm</span> <span class="o">=</span> <span class="p">[</span><a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">(),</span> <span class="n">BorderlineSMOTE</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;borderline-1&#39;</span><span class="p">),</span>
+      <span class="n">BorderlineSMOTE</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;borderline-2&#39;</span><span class="p">),</span> <span class="n">SVMSMOTE</span><span class="p">()]</span>
 <span class="n">X_resampled</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">y_resampled</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">X_res_vis</span> <span class="o">=</span> <span class="p">[]</span>
@@ -253,9 +254,10 @@
 <span class="n">ax_res</span> <span class="o">=</span> <span class="p">[</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">,</span> <span class="n">ax5</span><span class="p">,</span> <span class="n">ax6</span><span class="p">]</span>
 
 <span class="n">c0</span><span class="p">,</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">plot_resampling</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">X_vis</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;Original set&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kind</span><span class="p">)):</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;SMOTE&#39;</span><span class="p">,</span> <span class="s1">&#39;SMOTE Borderline-1&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;SMOTE Borderline-2&#39;</span><span class="p">,</span> <span class="s1">&#39;SMOTE SVM&#39;</span><span class="p">]):</span>
     <span class="n">plot_resampling</span><span class="p">(</span><span class="n">ax_res</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">X_res_vis</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_resampled</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                    <span class="s1">&#39;SMOTE {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                    <span class="s1">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Class #0&#39;</span><span class="p">,</span> <span class="s1">&#39;Class #1&#39;</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
            <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">labelspacing</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
@@ -263,7 +265,7 @@
 <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="View documentation for matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.289 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.373 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-over-sampling-plot-smote-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_smote.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_smote.py</span></code></a></div>
@@ -330,10 +332,7 @@
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {

@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="../../_static/css/imbalanced-learn.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/imbalanced-learn.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -210,7 +209,9 @@ different over-sampling algorithms available in the imbalanced-learn package.</p
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="View documentation for sklearn.svm.LinearSVC"><span class="n">LinearSVC</span></a>
 
 <span class="kn">from</span> <span class="nn">imblearn.pipeline</span> <span class="kn">import</span> <a href="../../generated/imblearn.pipeline.make_pipeline.html#imblearn.pipeline.make_pipeline" title="View documentation for imblearn.pipeline.make_pipeline"><span class="n">make_pipeline</span></a>
-<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.ADASYN.html#imblearn.over_sampling.ADASYN" title="View documentation for imblearn.over_sampling.ADASYN"><span class="n">ADASYN</span></a><span class="p">,</span> <a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">,</span> <a href="../../generated/imblearn.over_sampling.RandomOverSampler.html#imblearn.over_sampling.RandomOverSampler" title="View documentation for imblearn.over_sampling.RandomOverSampler"><span class="n">RandomOverSampler</span></a>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.ADASYN.html#imblearn.over_sampling.ADASYN" title="View documentation for imblearn.over_sampling.ADASYN"><span class="n">ADASYN</span></a>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">,</span> <span class="n">BorderlineSMOTE</span><span class="p">,</span> <span class="n">SVMSMOTE</span>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.RandomOverSampler.html#imblearn.over_sampling.RandomOverSampler" title="View documentation for imblearn.over_sampling.RandomOverSampler"><span class="n">RandomOverSampler</span></a>
 <span class="kn">from</span> <span class="nn">imblearn.base</span> <span class="kn">import</span> <span class="n">SamplerMixin</span>
 <span class="kn">from</span> <span class="nn">imblearn.utils</span> <span class="kn">import</span> <a href="../../generated/imblearn.utils.hash_X_y.html#imblearn.utils.hash_X_y" title="View documentation for imblearn.utils.hash_X_y"><span class="n">hash_X_y</span></a>
 
@@ -395,28 +396,25 @@ the support vectors found using an SVM algorithm to create new samples.</p>
                       <span class="n">class_sep</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 
 <span class="n">ax_arr</span> <span class="o">=</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span> <span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">),</span> <span class="p">(</span><span class="n">ax5</span><span class="p">,</span> <span class="n">ax6</span><span class="p">),</span> <span class="p">(</span><span class="n">ax7</span><span class="p">,</span> <span class="n">ax8</span><span class="p">))</span>
-<span class="n">string_add</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;borderline-1&#39;</span><span class="p">,</span> <span class="s1">&#39;borderline-2&#39;</span><span class="p">,</span> <span class="s1">&#39;SVM&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">str_add</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">sampler</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">string_add</span><span class="p">,</span>
-                                <span class="n">ax_arr</span><span class="p">,</span>
-                                <span class="p">(</span><a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
-                                 <a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;borderline1&#39;</span><span class="p">),</span>
-                                 <a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;borderline2&#39;</span><span class="p">),</span>
-                                 <a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;svm&#39;</span><span class="p">))):</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">sampler</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax_arr</span><span class="p">,</span>
+                       <span class="p">(</span><a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                        <span class="n">BorderlineSMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;borderline-1&#39;</span><span class="p">),</span>
+                        <span class="n">BorderlineSMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;borderline-2&#39;</span><span class="p">),</span>
+                        <span class="n">SVMSMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))):</span>
     <span class="n">clf</span> <span class="o">=</span> <a href="../../generated/imblearn.pipeline.make_pipeline.html#imblearn.pipeline.make_pipeline" title="View documentation for imblearn.pipeline.make_pipeline"><span class="n">make_pipeline</span></a><span class="p">(</span><span class="n">sampler</span><span class="p">,</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="View documentation for sklearn.svm.LinearSVC"><span class="n">LinearSVC</span></a><span class="p">())</span>
     <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">plot_decision_function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Decision function for {} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">str_add</span><span class="p">,</span> <span class="n">sampler</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Decision function for {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">sampler</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
     <span class="n">plot_resampling</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sampler</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Resampling using {} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">str_add</span><span class="p">,</span> <span class="n">sampler</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Resampling using {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sampler</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="View documentation for matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_comparison_over_sampling_006.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_comparison_over_sampling_006.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  31.818 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  32.295 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-over-sampling-plot-comparison-over-sampling-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_comparison_over_sampling.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_comparison_over_sampling.py</span></code></a></div>
@@ -484,10 +482,7 @@ the support vectors found using an SVM algorithm to create new samples.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
