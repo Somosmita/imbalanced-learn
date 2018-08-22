@@ -196,9 +196,10 @@
 <div class="viewcode-block" id="Pipeline"><a class="viewcode-back" href="../../generated/imblearn.pipeline.Pipeline.html#imblearn.pipeline.Pipeline">[docs]</a><span class="k">class</span> <span class="nc">Pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Pipeline of transforms and resamples with a final estimator.</span>
 
-<span class="sd">    Sequentially apply a list of transforms, samples and a final estimator.</span>
+<span class="sd">    Sequentially apply a list of transforms, sampling, and a final estimator.</span>
 <span class="sd">    Intermediate steps of the pipeline must be transformers or resamplers,</span>
 <span class="sd">    that is, they must implement fit, transform and sample methods.</span>
+<span class="sd">    The samplers are only applied during fit.</span>
 <span class="sd">    The final estimator only needs to implement fit.</span>
 <span class="sd">    The transformers and samplers in the pipeline can be cached using</span>
 <span class="sd">    ``memory`` argument.</span>
