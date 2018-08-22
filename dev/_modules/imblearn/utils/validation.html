@@ -178,6 +178,7 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors.base</span> <span class="k">import</span> <span class="n">KNeighborsMixin</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">NearestNeighbors</span>
 <span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">six</span><span class="p">,</span> <span class="n">joblib</span>
@@ -218,7 +219,7 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nn_object</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">nn_object</span> <span class="o">+</span> <span class="n">additional_neighbor</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nn_object</span><span class="p">,</span> <span class="n">KNeighborsMixin</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">nn_object</span>
+        <span class="k">return</span> <span class="n">clone</span><span class="p">(</span><span class="n">nn_object</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">raise_isinstance_error</span><span class="p">(</span><span class="n">nn_name</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">KNeighborsMixin</span><span class="p">],</span> <span class="n">nn_object</span><span class="p">)</span></div>
 

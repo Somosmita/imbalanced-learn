@@ -177,6 +177,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_X_y</span>
 
 <span class="kn">from</span> <span class="nn">..base</span> <span class="k">import</span> <span class="n">SamplerMixin</span>
@@ -271,7 +272,7 @@
         <span class="s2">&quot;Private function to validate SMOTE and ENN objects&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smote</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">smote</span><span class="p">,</span> <span class="n">SMOTE</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">smote_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smote</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">smote_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">smote</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;smote needs to be a SMOTE object.&#39;</span>
                                  <span class="s1">&#39;Got </span><span class="si">{}</span><span class="s1"> instead.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">smote</span><span class="p">)))</span>
@@ -284,7 +285,7 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enn</span><span class="p">,</span> <span class="n">EditedNearestNeighbours</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enn</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;enn needs to be an EditedNearestNeighbours.&#39;</span>
                                  <span class="s1">&#39; Got </span><span class="si">{}</span><span class="s1"> instead.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enn</span><span class="p">)))</span>
