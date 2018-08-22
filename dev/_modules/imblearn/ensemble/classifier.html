@@ -191,7 +191,8 @@
     <span class="n">sampling_strategy</span><span class="o">=</span><span class="n">BaseUnderSampler</span><span class="o">.</span><span class="n">_sampling_strategy_docstring</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="n">_random_state_docstring</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">BalancedBaggingClassifier</span><span class="p">(</span><span class="n">BaggingClassifier</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A Bagging classifier with additional balancing.</span>
+    <span class="sd">&quot;&quot;&quot;A Bagging classifier with additional balancing. It is similar to</span>
+<span class="sd">    ``EasyEnsemble`` [6]_.</span>
 
 <span class="sd">    This implementation of Bagging is similar to the scikit-learn</span>
 <span class="sd">    implementation. It includes an additional step to balance the training set</span>
@@ -314,6 +315,10 @@
 <span class="sd">    .. [5] Chen, Chao, Andy Liaw, and Leo Breiman. &quot;Using random forest to</span>
 <span class="sd">           learn imbalanced data.&quot; University of California, Berkeley 110,</span>
 <span class="sd">           2004.</span>
+<span class="sd">    .. [6] X. Y. Liu, J. Wu and Z. H. Zhou, &quot;Exploratory Undersampling for</span>
+<span class="sd">           Class-Imbalance Learning,&quot; in IEEE Transactions on Systems, Man, and</span>
+<span class="sd">           Cybernetics, Part B (Cybernetics), vol. 39, no. 2, pp. 539-550,</span>
+<span class="sd">           April 2009.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
