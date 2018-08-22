@@ -23,7 +23,6 @@ classifiers.
 
 
 
-
 .. code-block:: python
 
 
@@ -168,7 +167,6 @@ Turning the balanced bagging classifier into a balanced random forest
  ``max_features='auto'``. We illustrate such changes below.
 
 
-
 .. code-block:: python
 
 
@@ -213,7 +211,7 @@ Turning the balanced bagging classifier into a balanced random forest
      [  8  11]]
 
 
-**Total running time of the script:** ( 0 minutes  5.816 seconds)
+**Total running time of the script:** ( 0 minutes  6.053 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_comparison_bagging_classifier.py:

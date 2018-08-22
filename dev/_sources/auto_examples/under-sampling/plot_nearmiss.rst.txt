@@ -16,7 +16,6 @@ An illustration of the nearmiss 1 & 2 & 3 method.
 
 
 
-
 .. image:: /auto_examples/under-sampling/images/sphx_glr_plot_nearmiss_001.png
     :class: sphx-glr-single-img
 

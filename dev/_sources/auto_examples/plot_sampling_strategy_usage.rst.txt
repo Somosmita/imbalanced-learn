@@ -17,7 +17,6 @@ cleaning methods).
 
 
 
-
 .. code-block:: python
 
 
@@ -66,7 +65,6 @@ cleaning methods).
 
 
 First, we will create an imbalanced data set from a the iris data set.
-
 
 
 .. code-block:: python
@@ -120,7 +118,6 @@ First, we will create an imbalanced data set from a the iris data set.
 Using ``sampling_strategy`` in resampling algorithms
 ##############################################################################
 
-
 ``sampling_strategy`` as a ``float``
 ....................................
 
@@ -129,7 +126,6 @@ methods**, it corresponds to the ratio :math:`\\alpha_{us}` defined by
 :math:`N_{rM} = \\alpha_{us} \\times N_{m}` where :math:`N_{rM}` and
 :math:`N_{m}` are the number of samples in the majority class after
 resampling and the number of samples in the minority class, respectively.
-
 
 
 .. code-block:: python
@@ -175,7 +171,6 @@ minority class after resampling and the number of samples in the majority
 class, respectively.
 
 
-
 .. code-block:: python
 
 
@@ -213,7 +208,6 @@ targeted by the resampling. With under- and over-sampling, the number of
 samples will be equalized.
 
 Note that we are using multiple classes from now on.
-
 
 
 .. code-block:: python
@@ -272,7 +266,6 @@ With **cleaning method**, the number of samples in each class will not be
 equalized even if targeted.
 
 
-
 .. code-block:: python
 
 
@@ -299,7 +292,7 @@ equalized even if targeted.
 
     Information of the iris data set after making it balanced by cleaning sampling: 
      sampling_strategy=not minority 
-     y: Counter({2: 47, 1: 20, 0: 10})
+     y: Counter({2: 46, 1: 19, 0: 10})
 
 
 ``sampling_strategy`` as a ``dict``
@@ -309,7 +302,6 @@ When ``sampling_strategy`` is a ``dict``, the keys correspond to the targeted
 classes. The values correspond to the desired number of samples for each
 targeted class. This is working for both **under- and over-sampling**
 algorithms but not for the **cleaning algorithms**. Use a ``list`` instead.
-
 
 
 .. code-block:: python
@@ -373,7 +365,6 @@ classes. It is used only for **cleaning methods** and raise an error
 otherwise.
 
 
-
 .. code-block:: python
 
 
@@ -400,7 +391,7 @@ otherwise.
 
     Information of the iris data set after making it balanced by cleaning sampling: 
      sampling_strategy=[0, 1, 2] 
-     y: Counter({2: 47, 1: 20, 0: 10})
+     y: Counter({2: 46, 1: 19, 0: 10})
 
 
 ``sampling_strategy`` as a callable
@@ -409,7 +400,6 @@ otherwise.
 When callable, function taking ``y`` and returns a ``dict``. The keys
 correspond to the targeted classes. The values correspond to the desired
 number of samples for each class.
-
 
 
 .. code-block:: python
@@ -447,11 +437,11 @@ number of samples for each class.
  .. code-block:: none
 
     Information of the iris data set after balancing using a callable mode:
-     ratio=<function ratio_multiplier at 0x7f5f71bd2f28> 
+     ratio=<function ratio_multiplier at 0x7f18cdbf7f28> 
      y: Counter({2: 44, 1: 14, 0: 10})
 
 
-**Total running time of the script:** ( 0 minutes  0.214 seconds)
+**Total running time of the script:** ( 0 minutes  0.804 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_sampling_strategy_usage.py:

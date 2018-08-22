@@ -15,7 +15,6 @@ This example illustrates the different way of selecting example in NearMiss.
 
 
 
-
 .. code-block:: python
 
 
@@ -35,7 +34,6 @@ This example illustrates the different way of selecting example in NearMiss.
 
 
 This function allows to make nice plotting
-
 
 
 .. code-block:: python
@@ -66,7 +64,6 @@ We can start by generating some data to later illustrate the principle of
 each NearMiss heuritic rules.
 
 
-
 .. code-block:: python
 
 
@@ -86,13 +83,11 @@ each NearMiss heuritic rules.
 NearMiss-1
 ##############################################################################
 
-
 NearMiss-1 selects samples from the majority class for which the average
 distance to some nearest neighbours is the smallest. In the following
 example, we use a 3-NN to compute the average distance on 2 specific samples
 of the majority class. Therefore, in this case the point linked by the
 green-dashed line will be selected since the average distance is smaller.
-
 
 
 .. code-block:: python
@@ -132,13 +127,11 @@ green-dashed line will be selected since the average distance is smaller.
 NearMiss-2
 ##############################################################################
 
-
 NearMiss-2 selects samples from the majority class for which the average
 distance to the farthest neighbors is the smallest. With the same
 configuration as previously presented, the sample linked to the green-dashed
 line will be selected since its distance the 3 farthest neighbors is the
 smallest.
-
 
 
 .. code-block:: python
@@ -180,12 +173,10 @@ smallest.
 NearMiss-3
 ##############################################################################
 
-
 NearMiss-3 can be divided into 2 steps. First, a nearest-neighbors is used to
 short-list samples from the majority class (i.e. correspond to the
 highlighted samples in the following plot). Then, the sample with the largest
 average distance to the *k* nearest-neighbors are selected.
-
 
 
 .. code-block:: python
@@ -232,7 +223,7 @@ average distance to the *k* nearest-neighbors are selected.
 
 
 
-**Total running time of the script:** ( 0 minutes  0.154 seconds)
+**Total running time of the script:** ( 0 minutes  0.418 seconds)
 
 
 .. _sphx_glr_download_auto_examples_under-sampling_plot_illustration_nearmiss.py:

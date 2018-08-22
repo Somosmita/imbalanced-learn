@@ -15,7 +15,6 @@ This example illustrates what is a Tomek link.
 
 
 
-
 .. code-block:: python
 
 
@@ -35,7 +34,6 @@ This example illustrates what is a Tomek link.
 
 
 This function allows to make nice plotting
-
 
 
 .. code-block:: python
@@ -65,7 +63,6 @@ This function allows to make nice plotting
 Generate some data with one Tomek link
 
 
-
 .. code-block:: python
 
 
@@ -84,7 +81,6 @@ Generate some data with one Tomek link
 
 In the figure above, the samples highlighted in green form a Tomek link since
 they are of different classes and are nearest neighbours of each other.
-
 
 
 .. code-block:: python
@@ -117,7 +113,6 @@ We can run the ``TomekLinks`` sampling to remove the corresponding
 samples. If ``sampling_strategy='auto'`` only the sample from the majority
 class will be removed. If ``sampling_strategy='all'`` both samples will be
 removed.
-
 
 
 .. code-block:: python
@@ -161,7 +156,7 @@ removed.
 
 
 
-**Total running time of the script:** ( 0 minutes  0.201 seconds)
+**Total running time of the script:** ( 0 minutes  0.391 seconds)
 
 
 .. _sphx_glr_download_auto_examples_under-sampling_plot_illustration_tomek_links.py:

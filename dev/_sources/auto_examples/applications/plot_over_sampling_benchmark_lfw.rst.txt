@@ -20,7 +20,6 @@ by using an over-sampler.
 
 
 
-
 .. image:: /auto_examples/applications/images/sphx_glr_plot_over_sampling_benchmark_lfw_001.png
     :class: sphx-glr-single-img
 
@@ -132,7 +131,7 @@ by using an over-sampler.
 
     plt.show()
 
-**Total running time of the script:** ( 1 minutes  24.183 seconds)
+**Total running time of the script:** ( 1 minutes  32.727 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_over_sampling_benchmark_lfw.py:

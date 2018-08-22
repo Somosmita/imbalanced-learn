@@ -16,7 +16,6 @@ different under-sampling algorithms available in the imbalanced-learn package.
 
 
 
-
 .. code-block:: python
 
 
@@ -55,7 +54,6 @@ The following function will be used to create toy dataset. It using the
 ``make_classification`` from scikit-learn but fixing some parameters.
 
 
-
 .. code-block:: python
 
 
@@ -77,7 +75,6 @@ The following function will be used to create toy dataset. It using the
 
 The following function will be used to plot the sample space after resampling
 to illustrate the characteristic of an algorithm.
-
 
 
 .. code-block:: python
@@ -107,7 +104,6 @@ The following function will be used to plot the decision function of a
 classifier given some data.
 
 
-
 .. code-block:: python
 
 
@@ -134,10 +130,8 @@ classifier given some data.
 Prototype generation: under-sampling by generating new samples
 ##############################################################################
 
-
 ``ClusterCentroids`` under-samples by replacing the original samples by the
 centroids of the cluster found.
-
 
 
 .. code-block:: python
@@ -171,17 +165,14 @@ centroids of the cluster found.
 Prototype selection: under-sampling by selecting existing samples
 ##############################################################################
 
-
 The algorithm performing prototype selection can be subdivided into two
 groups: (i) the controlled under-sampling methods and (ii) the cleaning
 under-sampling methods.
-
 
 With the controlled under-sampling methods, the number of samples to be
 selected can be specified. ``RandomUnderSampler`` is the most naive way of
 performing such selection by randomly selecting a given number of samples by
 the targetted class.
-
 
 
 .. code-block:: python
@@ -223,7 +214,6 @@ samples selected are the on for which the average distance to the :math:`k`
 nearest neighbors is the largest.
 
 
-
 .. code-block:: python
 
 
@@ -260,7 +250,6 @@ repeated which is the principle of the
 ``RepeatedEditedNearestNeighbours``. ``AllKNN`` is slightly different from
 the ``RepeatedEditedNearestNeighbours`` by changing the :math:`k` parameter
 of the internal nearest neighors algorithm, increasing it at each iteration.
-
 
 
 .. code-block:: python
@@ -303,7 +292,6 @@ remove the samples considered noisy. The ``NeighbourhoodCleaningRule`` use a
 nearest-neighbors to remove samples which do not agree with this rule.
 
 
-
 .. code-block:: python
 
 
@@ -340,7 +328,6 @@ samples. All samples which are classified with a low probability will be
 removed.
 
 
-
 .. code-block:: python
 
 
@@ -371,7 +358,7 @@ removed.
 
 
 
-**Total running time of the script:** ( 0 minutes  11.801 seconds)
+**Total running time of the script:** ( 0 minutes  10.816 seconds)
 
 
 .. _sphx_glr_download_auto_examples_under-sampling_plot_comparison_under_sampling.py:

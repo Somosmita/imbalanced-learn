@@ -16,7 +16,6 @@ An illustration of the condensed nearest-neighbour method.
 
 
 
-
 .. image:: /auto_examples/under-sampling/images/sphx_glr_plot_condensed_nearest_neighbour_001.png
     :class: sphx-glr-single-img
 

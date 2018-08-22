@@ -16,7 +16,6 @@ different over-sampling algorithms available in the imbalanced-learn package.
 
 
 
-
 .. code-block:: python
 
 
@@ -51,7 +50,6 @@ The following function will be used to create toy dataset. It using the
 ``make_classification`` from scikit-learn but fixing some parameters.
 
 
-
 .. code-block:: python
 
 
@@ -73,7 +71,6 @@ The following function will be used to create toy dataset. It using the
 
 The following function will be used to plot the sample space after resampling
 to illustrate the characterisitic of an algorithm.
-
 
 
 .. code-block:: python
@@ -103,7 +100,6 @@ The following function will be used to plot the decision function of a
 classifier given some data.
 
 
-
 .. code-block:: python
 
 
@@ -130,11 +126,9 @@ classifier given some data.
 Illustration of the influence of the balancing ratio
 ##############################################################################
 
-
 We will first illustrate the influence of the balancing ratio on some toy
 data using a linear SVM classifier. Greater is the difference between the
 number of samples in each class, poorer are the classfication results.
-
 
 
 .. code-block:: python
@@ -164,12 +158,10 @@ number of samples in each class, poorer are the classfication results.
 Random over-sampling to balance the data set
 ##############################################################################
 
-
 Random over-sampling can be used to repeat some samples and balance the
 number of samples between the dataset. It can be seen that with this trivial
 approach the boundary decision is already less biaised toward the majority
 class.
-
 
 
 .. code-block:: python
@@ -198,10 +190,8 @@ class.
 More advanced over-sampling using ADASYN and SMOTE
 ##############################################################################
 
-
 Instead of repeating the same samples when over-sampling, we can use some
 specific heuristic instead. ADASYN and SMOTE can be used in this case.
-
 
 
 .. code-block:: python
@@ -258,7 +248,6 @@ nearest-neighbors rule while regular SMOTE will not make any distinction.
 Therefore, the decision function depending of the algorithm.
 
 
-
 .. code-block:: python
 
 
@@ -291,7 +280,6 @@ Therefore, the decision function depending of the algorithm.
 
 Due to those sampling particularities, it can give rise to some specific
 issues as illustrated below.
-
 
 
 .. code-block:: python
@@ -329,7 +317,6 @@ select which are in the border between two classes. The SVM version will use
 the support vectors found using an SVM algorithm to create new samples.
 
 
-
 .. code-block:: python
 
 
@@ -363,7 +350,7 @@ the support vectors found using an SVM algorithm to create new samples.
 
 
 
-**Total running time of the script:** ( 0 minutes  32.295 seconds)
+**Total running time of the script:** ( 0 minutes  39.246 seconds)
 
 
 .. _sphx_glr_download_auto_examples_over-sampling_plot_comparison_over_sampling.py:
