@@ -199,13 +199,6 @@
 
     <span class="n">_estimator_type</span> <span class="o">=</span> <span class="s1">&#39;sampler&#39;</span>
 
-    <span class="k">def</span> <span class="nf">_check_X_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Private function to check that the X and y in fitting are the same</span>
-<span class="sd">        than in sampling.&quot;&quot;&quot;</span>
-        <span class="n">X_hash</span><span class="p">,</span> <span class="n">y_hash</span> <span class="o">=</span> <span class="n">hash_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_hash_</span> <span class="o">!=</span> <span class="n">X_hash</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_hash_</span> <span class="o">!=</span> <span class="n">y_hash</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;X and y need to be same array earlier fitted.&quot;</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resample the dataset.</span>
 
@@ -228,11 +221,10 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check the consistency of X and y</span>
-        <span class="n">y</span><span class="p">,</span> <span class="n">binarize_y</span> <span class="o">=</span> <span class="n">check_target_type</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">indicate_one_vs_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="s1">&#39;csc&#39;</span><span class="p">])</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">binarize_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
         <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;sampling_strategy_&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_X_y_hash</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
@@ -319,6 +311,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span> <span class="o">=</span> <span class="n">ratio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">binarize_y</span> <span class="o">=</span> <span class="n">check_target_type</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">indicate_one_vs_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="s1">&#39;csc&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">binarize_y</span>
+
+    <span class="k">def</span> <span class="nf">_check_X_y_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Private function to check that the X and y in fitting are the same</span>
+<span class="sd">        than in sampling.&quot;&quot;&quot;</span>
+        <span class="n">X_hash</span><span class="p">,</span> <span class="n">y_hash</span> <span class="o">=</span> <span class="n">hash_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_hash_</span> <span class="o">!=</span> <span class="n">X_hash</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_hash_</span> <span class="o">!=</span> <span class="n">y_hash</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;X and y need to be same array earlier fitted.&quot;</span><span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ratio_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># FIXME: remove in 0.6</span>
@@ -351,9 +356,9 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_deprecate_ratio</span><span class="p">()</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">check_target_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="s1">&#39;csc&#39;</span><span class="p">])</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X_hash_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_hash_</span> <span class="o">=</span> <span class="n">hash_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="c1"># _sampling_type is defined in the children base class</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sampling_strategy_</span> <span class="o">=</span> <span class="n">check_sampling_strategy</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sampling_strategy</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sampling_type</span><span class="p">)</span>
 

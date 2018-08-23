@@ -180,7 +180,7 @@
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_X_y</span>
 
-<span class="kn">from</span> <span class="nn">..base</span> <span class="k">import</span> <span class="n">SamplerMixin</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="k">import</span> <span class="n">BaseSampler</span>
 <span class="kn">from</span> <span class="nn">..over_sampling</span> <span class="k">import</span> <span class="n">SMOTE</span>
 <span class="kn">from</span> <span class="nn">..over_sampling.base</span> <span class="k">import</span> <span class="n">BaseOverSampler</span>
 <span class="kn">from</span> <span class="nn">..under_sampling</span> <span class="k">import</span> <span class="n">EditedNearestNeighbours</span>
@@ -192,7 +192,7 @@
 <div class="viewcode-block" id="SMOTEENN"><a class="viewcode-back" href="../../../generated/imblearn.combine.SMOTEENN.html#imblearn.combine.SMOTEENN">[docs]</a><span class="nd">@Substitution</span><span class="p">(</span>
     <span class="n">sampling_strategy</span><span class="o">=</span><span class="n">BaseOverSampler</span><span class="o">.</span><span class="n">_sampling_strategy_docstring</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="n">_random_state_docstring</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">SMOTEENN</span><span class="p">(</span><span class="n">SamplerMixin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SMOTEENN</span><span class="p">(</span><span class="n">BaseSampler</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class to perform over-sampling using SMOTE and cleaning using ENN.</span>
 
 <span class="sd">    Combine over- and under-sampling using SMOTE and Edited Nearest Neighbours.</span>
@@ -292,14 +292,6 @@
         <span class="c1"># Otherwise create a default EditedNearestNeighbours</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span> <span class="o">=</span> <span class="n">EditedNearestNeighbours</span><span class="p">(</span><span class="n">sampling_strategy</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ratio_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># FIXME: remove in 0.6</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&#39;ratio&#39; and &#39;ratio_&#39; are deprecated. Use &quot;</span>
-                      <span class="s2">&quot;&#39;sampling_strategy&#39; and &#39;sampling_strategy_&#39; instead.&quot;</span><span class="p">,</span>
-                      <span class="ne">DeprecationWarning</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_strategy_</span>
 
 <div class="viewcode-block" id="SMOTEENN.fit"><a class="viewcode-back" href="../../../generated/imblearn.combine.SMOTEENN.html#imblearn.combine.SMOTEENN.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Find the classes statistics before to perform sampling.</span>

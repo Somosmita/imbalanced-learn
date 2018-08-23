@@ -269,6 +269,19 @@ by considering independently each targeted class:</p>
 <span class="go">(181, 2)</span>
 </pre></div>
 </div>
+<p>In addition, <a class="reference internal" href="generated/imblearn.under_sampling.RandomUnderSampler.html#imblearn.under_sampling.RandomUnderSampler" title="imblearn.under_sampling.RandomUnderSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomUnderSampler</span></code></a> allows to sample heterogeneous data
+(e.g. containing some strings):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_hetero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="s1">&#39;xxx&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;yyy&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;zzz&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]],</span>
+<span class="gp">... </span>                    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_hetero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span> <span class="o">=</span> <span class="n">rus</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X_hetero</span><span class="p">,</span> <span class="n">y_hetero</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">X_resampled</span><span class="p">)</span>
+<span class="go">[[&#39;xxx&#39; 1 1.0]</span>
+<span class="go"> [&#39;zzz&#39; 3 3.0]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y_resampled</span><span class="p">)</span>
+<span class="go">[0 1]</span>
+</pre></div>
+</div>
 <p>See <a class="reference internal" href="auto_examples/plot_sampling_strategy_usage.html#sphx-glr-auto-examples-plot-sampling-strategy-usage-py"><span class="std std-ref">Usage of the sampling_strategy parameter for the different algorithms</span></a>.,
 <a class="reference internal" href="auto_examples/under-sampling/plot_comparison_under_sampling.html#sphx-glr-auto-examples-under-sampling-plot-comparison-under-sampling-py"><span class="std std-ref">Comparison of the different under-sampling algorithms</span></a>,
 and <a class="reference internal" href="auto_examples/under-sampling/plot_random_under_sampler.html#sphx-glr-auto-examples-under-sampling-plot-random-under-sampler-py"><span class="std std-ref">Random under-sampling</span></a>.</p>
