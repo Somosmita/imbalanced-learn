@@ -303,30 +303,6 @@
         <span class="k">return</span> <span class="n">links</span></div>
 
     <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Resample the dataset.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        X : {array-like, sparse matrix}, shape (n_samples, n_features)</span>
-<span class="sd">            Matrix containing the data which have to be sampled.</span>
-
-<span class="sd">        y : array-like, shape (n_samples,)</span>
-<span class="sd">            Corresponding label for each sample in X.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        X_resampled : {ndarray, sparse matrix}, shape \</span>
-<span class="sd">(n_samples_new, n_features)</span>
-<span class="sd">            The array containing the resampled data.</span>
-
-<span class="sd">        y_resampled : ndarray, shape (n_samples_new,)</span>
-<span class="sd">            The corresponding label of `X_resampled`</span>
-
-<span class="sd">        idx_under : ndarray, shape (n_samples, )</span>
-<span class="sd">            If `return_indices` is `True`, a boolean array will be returned</span>
-<span class="sd">            containing the which samples have been selected.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check for deprecated random_state</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">deprecate_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;0.4&#39;</span><span class="p">,</span> <span class="s1">&#39;random_state&#39;</span><span class="p">)</span>
