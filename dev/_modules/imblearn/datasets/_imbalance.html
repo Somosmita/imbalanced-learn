@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>imblearn.datasets.imbalance &mdash; imbalanced-learn 0.4.0.dev0 documentation</title>
+  <title>imblearn.datasets._imbalance &mdash; imbalanced-learn 0.4.0.dev0 documentation</title>
   
 
   
@@ -150,7 +150,7 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-      <li>imblearn.datasets.imbalance</li>
+      <li>imblearn.datasets._imbalance</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -165,7 +165,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for imblearn.datasets.imbalance</h1><div class="highlight"><pre>
+  <h1>Source code for imblearn.datasets._imbalance</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Transform a dataset into an imbalanced dataset.&quot;&quot;&quot;</span>
 
 <span class="c1"># Authors: Dayvid Oliveira</span>
@@ -179,7 +179,7 @@
 
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_X_y</span>
 
-<span class="kn">from</span> <span class="nn">..under_sampling.prototype_selection</span> <span class="k">import</span> <span class="n">RandomUnderSampler</span>
+<span class="kn">from</span> <span class="nn">..under_sampling</span> <span class="k">import</span> <span class="n">RandomUnderSampler</span>
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">check_sampling_strategy</span>
 
 <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
