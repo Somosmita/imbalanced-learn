@@ -218,6 +218,9 @@ sample. <a class="reference external" href="https://github.com/scikit-learn-cont
 <ul class="simple">
 <li>Add a <code class="docutils literal notranslate"><span class="pre">keras</span></code> and <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> modules to create balanced mini-batches
 generator. <a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/issues/409">#409</a> by <a class="reference external" href="https://github.com/glemaitre">Guillaume Lemaitre</a>.</li>
+<li>Add <a class="reference internal" href="generated/imblearn.ensemble.EasyEnsembleClassifier.html#imblearn.ensemble.EasyEnsembleClassifier" title="imblearn.ensemble.EasyEnsembleClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">imblearn.ensemble.EasyEnsembleClassifier</span></code></a> which create a bag of
+AdaBoost classifier trained on balanced bootstrap samples.
+<a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/issues/455">#455</a> by <a class="reference external" href="https://github.com/glemaitre">Guillaume Lemaitre</a>.</li>
 </ul>
 </div>
 <div class="section" id="enhancement">
@@ -295,6 +298,10 @@ used. <a class="reference external" href="https://github.com/scikit-learn-contri
 <code class="xref py py-class docutils literal notranslate"><span class="pre">imblearn.over_sampling.SVMSMOTE</span></code> and
 <code class="xref py py-class docutils literal notranslate"><span class="pre">imblearn.over_sampling.BorderlineSMOTE</span></code>.
 <a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/issues/440">#440</a> by <a class="reference external" href="https://github.com/glemaitre">Guillaume Lemaitre</a>.</li>
+<li>Deprecate <a class="reference internal" href="generated/imblearn.ensemble.EasyEnsemble.html#imblearn.ensemble.EasyEnsemble" title="imblearn.ensemble.EasyEnsemble"><code class="xref py py-class docutils literal notranslate"><span class="pre">imblearn.ensemble.EasyEnsemble</span></code></a> in favor of meta-estimator
+<a class="reference internal" href="generated/imblearn.ensemble.EasyEnsembleClassifier.html#imblearn.ensemble.EasyEnsembleClassifier" title="imblearn.ensemble.EasyEnsembleClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">imblearn.ensemble.EasyEnsembleClassifier</span></code></a> which follow the exact
+algorithm described in the literature.
+<a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/issues/455">#455</a> by <a class="reference external" href="https://github.com/glemaitre">Guillaume Lemaitre</a>.</li>
 </ul>
 </div>
 </div>
