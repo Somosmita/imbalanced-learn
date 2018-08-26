@@ -768,18 +768,53 @@
     <span class="k">return</span> <span class="n">X_res</span><span class="p">,</span> <span class="n">y_res</span><span class="p">,</span> <span class="n">sampler</span>
 
 
-<div class="viewcode-block" id="make_pipeline"><a class="viewcode-back" href="../../generated/imblearn.pipeline.make_pipeline.html#imblearn.pipeline.make_pipeline">[docs]</a><span class="k">def</span> <span class="nf">make_pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">):</span>
+<div class="viewcode-block" id="make_pipeline"><a class="viewcode-back" href="../../generated/imblearn.pipeline.make_pipeline.html#imblearn.pipeline.make_pipeline">[docs]</a><span class="k">def</span> <span class="nf">make_pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Construct a Pipeline from the given estimators.</span>
 
 <span class="sd">    This is a shorthand for the Pipeline constructor; it does not require, and</span>
 <span class="sd">    does not permit, naming the estimators. Instead, their names will be set</span>
 <span class="sd">    to the lowercase of their types automatically.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *steps : list of estimators.</span>
+
+<span class="sd">    memory : None, str or object with the joblib.Memory interface, optional</span>
+<span class="sd">        Used to cache the fitted transformers of the pipeline. By default,</span>
+<span class="sd">        no caching is performed. If a string is given, it is the path to</span>
+<span class="sd">        the caching directory. Enabling caching triggers a clone of</span>
+<span class="sd">        the transformers before fitting. Therefore, the transformer</span>
+<span class="sd">        instance given to the pipeline cannot be inspected</span>
+<span class="sd">        directly. Use the attribute ``named_steps`` or ``steps`` to</span>
+<span class="sd">        inspect estimators within the pipeline. Caching the</span>
+<span class="sd">        transformers is advantageous when fitting is time consuming.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    p : Pipeline</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    imblearn.pipeline.Pipeline : Class for creating a pipeline of</span>
+<span class="sd">        transforms with a final estimator.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.naive_bayes import GaussianNB</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.preprocessing import StandardScaler</span>
+<span class="sd">    &gt;&gt;&gt; make_pipeline(StandardScaler(), GaussianNB(priors=None))</span>
+<span class="sd">    ...     # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    Pipeline(memory=None,</span>
+<span class="sd">             steps=[(&#39;standardscaler&#39;,</span>
+<span class="sd">                     StandardScaler(copy=True, with_mean=True, with_std=True)),</span>
+<span class="sd">                    (&#39;gaussiannb&#39;,</span>
+<span class="sd">                     GaussianNB(priors=None))])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">_name_estimators</span><span class="p">(</span><span class="n">steps</span><span class="p">))</span></div>
+    <span class="n">memory</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;memory&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Unknown keyword arguments: &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">_name_estimators</span><span class="p">(</span><span class="n">steps</span><span class="p">),</span> <span class="n">memory</span><span class="o">=</span><span class="n">memory</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
