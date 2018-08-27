@@ -437,11 +437,11 @@ number of samples for each class.
  .. code-block:: none
 
     Information of the iris data set after balancing using a callable mode:
-     ratio=<function ratio_multiplier at 0x7f3bdd2e2e18> 
+     ratio=<function ratio_multiplier at 0x7eff459e8bf8> 
      y: Counter({2: 44, 1: 14, 0: 10})
 
 
-**Total running time of the script:** ( 0 minutes  1.006 seconds)
+**Total running time of the script:** ( 0 minutes  0.576 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_sampling_strategy_usage.py:
