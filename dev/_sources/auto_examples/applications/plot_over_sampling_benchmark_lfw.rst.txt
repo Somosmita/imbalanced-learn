@@ -58,7 +58,7 @@ by using an over-sampler.
         def fit(self, X, y):
             return self
 
-        def fit_sample(self, X, y):
+        def fit_resample(self, X, y):
             return self.sample(X, y)
 
 
@@ -131,7 +131,7 @@ by using an over-sampler.
 
     plt.show()
 
-**Total running time of the script:** ( 1 minutes  29.054 seconds)
+**Total running time of the script:** ( 1 minutes  43.269 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_over_sampling_benchmark_lfw.py:

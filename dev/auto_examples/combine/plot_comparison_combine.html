@@ -226,7 +226,7 @@ imbalanced-learn.</p>
 <p>The following function will be used to plot the sample space after resampling
 to illustrate the characteristic of an algorithm.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_resampling</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sampling</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
-    <span class="n">X_res</span><span class="p">,</span> <span class="n">y_res</span> <span class="o">=</span> <span class="n">sampling</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">X_res</span><span class="p">,</span> <span class="n">y_res</span> <span class="o">=</span> <span class="n">sampling</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_res</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_res</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_res</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
     <span class="c1"># make nice plotting</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
@@ -285,7 +285,7 @@ and <code class="docutils literal notranslate"><span class="pre">SMOTEENN</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_comparison_combine_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_comparison_combine_001.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  1.525 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  1.565 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-combine-plot-comparison-combine-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_comparison_combine.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_comparison_combine.py</span></code></a></div>

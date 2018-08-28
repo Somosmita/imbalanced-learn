@@ -262,7 +262,7 @@
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
 <span class="sd">    &gt;&gt;&gt; ee = EasyEnsemble(random_state=42)</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = ee.fit_sample(X, y)</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = ee.fit_resample(X, y)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res[0]))</span>
 <span class="sd">    Resampled dataset shape Counter({{0: 100, 1: 100}})</span>
 
@@ -282,7 +282,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">replacement</span> <span class="o">=</span> <span class="n">replacement</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_subsets</span> <span class="o">=</span> <span class="n">n_subsets</span>
 
-    <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">random_state</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
 
         <span class="n">X_resampled</span> <span class="o">=</span> <span class="p">[]</span>
@@ -296,7 +296,7 @@
                 <span class="n">return_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">MAX_INT</span><span class="p">),</span>
                 <span class="n">replacement</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">replacement</span><span class="p">)</span>
-            <span class="n">sel_x</span><span class="p">,</span> <span class="n">sel_y</span><span class="p">,</span> <span class="n">sel_idx</span> <span class="o">=</span> <span class="n">rus</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">sel_x</span><span class="p">,</span> <span class="n">sel_y</span><span class="p">,</span> <span class="n">sel_idx</span> <span class="o">=</span> <span class="n">rus</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
             <span class="n">X_resampled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sel_x</span><span class="p">)</span>
             <span class="n">y_resampled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sel_y</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">:</span>

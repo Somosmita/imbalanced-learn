@@ -270,7 +270,7 @@
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
 <span class="sd">    &gt;&gt;&gt; enn = EditedNearestNeighbours()</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = enn.fit_sample(X, y)</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = enn.fit_resample(X, y)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res))</span>
 <span class="sd">    Resampled dataset shape Counter({{1: 887, 0: 100}})</span>
 
@@ -306,7 +306,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind_sel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SEL_KIND</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_estimator</span><span class="p">()</span>
 
         <span class="n">idx_under</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -425,7 +425,7 @@
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
 <span class="sd">    &gt;&gt;&gt; renn = RepeatedEditedNearestNeighbours()</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = renn.fit_sample(X, y)</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = renn.fit_resample(X, y)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res))</span>
 <span class="sd">    Resampled dataset shape Counter({{1: 887, 0: 100}})</span>
 
@@ -471,7 +471,7 @@
             <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
             <span class="n">ratio</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_estimator</span><span class="p">()</span>
 
         <span class="n">X_</span><span class="p">,</span> <span class="n">y_</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
@@ -484,9 +484,9 @@
 
             <span class="n">prev_len</span> <span class="o">=</span> <span class="n">y_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">:</span>
-                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span><span class="p">,</span> <span class="n">idx_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span><span class="p">,</span> <span class="n">idx_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
 
             <span class="c1"># Check the stopping criterion</span>
             <span class="c1"># 1. If there is no changes for the vector y</span>
@@ -612,7 +612,7 @@
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
 <span class="sd">    &gt;&gt;&gt; allknn = AllKNN()</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = allknn.fit_sample(X, y)</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = allknn.fit_resample(X, y)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res))</span>
 <span class="sd">    Resampled dataset shape Counter({{1: 887, 0: 100}})</span>
 
@@ -657,7 +657,7 @@
             <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
             <span class="n">ratio</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_estimator</span><span class="p">()</span>
 
         <span class="n">X_</span><span class="p">,</span> <span class="n">y_</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
@@ -671,9 +671,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">curr_size_ngh</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">:</span>
-                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span><span class="p">,</span> <span class="n">idx_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span><span class="p">,</span> <span class="n">idx_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+                <span class="n">X_enn</span><span class="p">,</span> <span class="n">y_enn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enn_</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
 
             <span class="c1"># Check the stopping criterion</span>
             <span class="c1"># 1. If the number of samples in the other class become inferior to</span>

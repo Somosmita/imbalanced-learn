@@ -51,7 +51,7 @@ An illustration of the easy ensemble method.
 
     # Apply Easy Ensemble
     ee = EasyEnsemble(n_subsets=3)
-    X_resampled, y_resampled = ee.fit_sample(X, y)
+    X_resampled, y_resampled = ee.fit_resample(X, y)
     X_res_vis = []
     for X_res in X_resampled:
         X_res_vis.append(pca.transform(X_res))
@@ -84,7 +84,7 @@ An illustration of the easy ensemble method.
     plt.tight_layout()
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  0.239 seconds)
+**Total running time of the script:** ( 0 minutes  0.266 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_easy_ensemble.py:

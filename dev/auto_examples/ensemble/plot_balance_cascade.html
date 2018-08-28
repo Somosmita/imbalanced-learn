@@ -213,7 +213,7 @@
 
 <span class="c1"># Apply Balance Cascade method</span>
 <span class="n">bc</span> <span class="o">=</span> <a href="../../generated/imblearn.ensemble.BalanceCascade.html#imblearn.ensemble.BalanceCascade" title="View documentation for imblearn.ensemble.BalanceCascade"><span class="n">BalanceCascade</span></a><span class="p">()</span>
-<span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">X_res_vis</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">X_res</span> <span class="ow">in</span> <span class="n">X_resampled</span><span class="p">:</span>
     <span class="n">X_res_vis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_res</span><span class="p">))</span>
@@ -247,7 +247,7 @@
 <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="View documentation for matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.240 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.232 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-ensemble-plot-balance-cascade-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_balance_cascade.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_balance_cascade.py</span></code></a></div>

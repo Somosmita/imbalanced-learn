@@ -202,12 +202,8 @@ and adding a sampling functionality through the <code class="docutils literal no
 </div>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Sampler:</th><td class="field-body"><p class="first">To resample a data sets, each sampler implements:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_resampled</span><span class="p">,</span> <span class="n">targets_resampled</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Fitting and sampling can also be done in one step:</p>
-<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_resampled</span><span class="p">,</span> <span class="n">targets_resampled</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+<tr class="field-even field"><th class="field-name">Resampler:</th><td class="field-body"><p class="first">To resample a data sets, each sampler implements:</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_resampled</span><span class="p">,</span> <span class="n">targets_resampled</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
 </pre></div>
 </div>
 </td>

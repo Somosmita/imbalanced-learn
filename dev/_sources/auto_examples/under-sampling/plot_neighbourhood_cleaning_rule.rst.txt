@@ -52,7 +52,7 @@ An illustration of the neighbourhood cleaning rule method.
 
     # Apply neighbourhood cleaning rule
     ncl = NeighbourhoodCleaningRule(return_indices=True)
-    X_resampled, y_resampled, idx_resampled = ncl.fit_sample(X, y)
+    X_resampled, y_resampled, idx_resampled = ncl.fit_resample(X, y)
     X_res_vis = pca.transform(X_resampled)
 
     fig = plt.figure()
@@ -84,7 +84,7 @@ An illustration of the neighbourhood cleaning rule method.
     plt.tight_layout()
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  0.172 seconds)
+**Total running time of the script:** ( 0 minutes  0.127 seconds)
 
 
 .. _sphx_glr_download_auto_examples_under-sampling_plot_neighbourhood_cleaning_rule.py:

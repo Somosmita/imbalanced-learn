@@ -52,7 +52,7 @@ An illustration of the one-sided selection method.
 
     # Apply One-Sided Selection
     oss = OneSidedSelection(return_indices=True)
-    X_resampled, y_resampled, idx_resampled = oss.fit_sample(X, y)
+    X_resampled, y_resampled, idx_resampled = oss.fit_resample(X, y)
     X_res_vis = pca.transform(X_resampled)
 
     fig = plt.figure()
@@ -84,7 +84,7 @@ An illustration of the one-sided selection method.
     plt.tight_layout()
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  0.145 seconds)
+**Total running time of the script:** ( 0 minutes  0.188 seconds)
 
 
 .. _sphx_glr_download_auto_examples_under-sampling_plot_one_sided_selection.py:

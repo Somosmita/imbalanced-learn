@@ -182,14 +182,14 @@
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors.base</span> <span class="k">import</span> <span class="n">KNeighborsMixin</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">NearestNeighbors</span>
-<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">six</span><span class="p">,</span> <span class="n">joblib</span>
+<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">six</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.multiclass</span> <span class="k">import</span> <span class="n">type_of_target</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.deprecation</span> <span class="k">import</span> <span class="n">deprecated</span>
 
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">raise_isinstance_error</span>
 
 <span class="n">SAMPLING_KIND</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;over-sampling&#39;</span><span class="p">,</span> <span class="s1">&#39;under-sampling&#39;</span><span class="p">,</span> <span class="s1">&#39;clean-sampling&#39;</span><span class="p">,</span>
-                 <span class="s1">&#39;ensemble&#39;</span><span class="p">)</span>
+                 <span class="s1">&#39;ensemble&#39;</span><span class="p">,</span> <span class="s1">&#39;bypass&#39;</span><span class="p">)</span>
 <span class="n">TARGET_KIND</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;binary&#39;</span><span class="p">,</span> <span class="s1">&#39;multiclass&#39;</span><span class="p">,</span> <span class="s1">&#39;multilabel-indicator&#39;</span><span class="p">)</span>
 
 
@@ -261,41 +261,6 @@
                 <span class="n">type_y</span> <span class="o">==</span> <span class="s1">&#39;multilabel-indicator&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">y</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">type_y</span> <span class="o">==</span> <span class="s1">&#39;multilabel-indicator&#39;</span> <span class="k">else</span> <span class="n">y</span>
-
-
-<div class="viewcode-block" id="hash_X_y"><a class="viewcode-back" href="../../../generated/imblearn.utils.hash_X_y.html#imblearn.utils.hash_X_y">[docs]</a><span class="k">def</span> <span class="nf">hash_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Compute hash of the input arrays.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    X : array_like, shape (n_samples, n_features)</span>
-<span class="sd">        The ``X`` array.</span>
-
-<span class="sd">    y : ndarray, shape (n_samples)</span>
-<span class="sd">        The ``y`` array.</span>
-
-<span class="sd">    n_samples : int, optional</span>
-<span class="sd">        The number of samples to use to compute the hash. Default is 100.</span>
-
-<span class="sd">    n_features : int, optional</span>
-<span class="sd">        The number of features to use to compute the hash. Default is 10.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    X_hash: str</span>
-<span class="sd">        Hash identifier of the ``X`` matrix.</span>
-<span class="sd">    y_hash: str</span>
-<span class="sd">        Hash identifier of the ``y`` matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">row_idx</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">n_samples</span><span class="p">))</span>
-    <span class="n">col_idx</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">n_features</span><span class="p">))</span>
-
-    <span class="n">X_subset</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;iloc&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">X</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">])</span>
-    <span class="n">y_subset</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row_idx</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;iloc&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">y</span><span class="p">[</span><span class="n">row_idx</span><span class="p">])</span>
-
-    <span class="k">return</span> <span class="n">joblib</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">X_subset</span><span class="p">),</span> <span class="n">joblib</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">y_subset</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_sampling_strategy_all</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sampling_type</span><span class="p">):</span>
@@ -629,7 +594,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The target &#39;y&#39; needs to have more than 1 class.&quot;</span>
                          <span class="s2">&quot; Got </span><span class="si">{}</span><span class="s2"> class instead&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">sampling_type</span> <span class="o">==</span> <span class="s1">&#39;ensemble&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">sampling_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;ensemble&#39;</span><span class="p">,</span> <span class="s1">&#39;bypass&#39;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">sampling_strategy</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sampling_strategy</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>

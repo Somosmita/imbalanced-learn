@@ -212,8 +212,7 @@ different over-sampling algorithms available in the imbalanced-learn package.</p
 <span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.ADASYN.html#imblearn.over_sampling.ADASYN" title="View documentation for imblearn.over_sampling.ADASYN"><span class="n">ADASYN</span></a>
 <span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE" title="View documentation for imblearn.over_sampling.SMOTE"><span class="n">SMOTE</span></a><span class="p">,</span> <span class="n">BorderlineSMOTE</span><span class="p">,</span> <span class="n">SVMSMOTE</span>
 <span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <a href="../../generated/imblearn.over_sampling.RandomOverSampler.html#imblearn.over_sampling.RandomOverSampler" title="View documentation for imblearn.over_sampling.RandomOverSampler"><span class="n">RandomOverSampler</span></a>
-<span class="kn">from</span> <span class="nn">imblearn.base</span> <span class="kn">import</span> <span class="n">SamplerMixin</span>
-<span class="kn">from</span> <span class="nn">imblearn.utils</span> <span class="kn">import</span> <a href="../../generated/imblearn.utils.hash_X_y.html#imblearn.utils.hash_X_y" title="View documentation for imblearn.utils.hash_X_y"><span class="n">hash_X_y</span></a>
+<span class="kn">from</span> <span class="nn">imblearn.base</span> <span class="kn">import</span> <span class="n">BaseSampler</span>
 
 <span class="k">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
 </pre></div>
@@ -233,7 +232,7 @@ different over-sampling algorithms available in the imbalanced-learn package.</p
 <p>The following function will be used to plot the sample space after resampling
 to illustrate the characterisitic of an algorithm.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_resampling</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sampling</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
-    <span class="n">X_res</span><span class="p">,</span> <span class="n">y_res</span> <span class="o">=</span> <span class="n">sampling</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">X_res</span><span class="p">,</span> <span class="n">y_res</span> <span class="o">=</span> <span class="n">sampling</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_res</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_res</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_res</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
     <span class="c1"># make nice plotting</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
@@ -305,20 +304,11 @@ class.</p>
 <p>Instead of repeating the same samples when over-sampling, we can use some
 specific heuristic instead. ADASYN and SMOTE can be used in this case.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make an identity sampler</span>
-<span class="k">class</span> <span class="nc">FakeSampler</span><span class="p">(</span><span class="n">SamplerMixin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">FakeSampler</span><span class="p">(</span><span class="n">BaseSampler</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ratio_</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">X_hash_</span> <span class="o">=</span> <a href="../../generated/imblearn.utils.hash_X_y.html#imblearn.utils.hash_X_y" title="View documentation for imblearn.utils.hash_X_y"><span class="n">hash_X_y</span></a><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+    <span class="n">_sampling_type</span> <span class="o">=</span> <span class="s1">&#39;bypass&#39;</span>
 
-    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">X</span><span class="p">,</span>
-
-    <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">fit_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
 
 
@@ -414,7 +404,7 @@ the support vectors found using an SVM algorithm to create new samples.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_comparison_over_sampling_006.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_comparison_over_sampling_006.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  38.610 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  48.384 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-over-sampling-plot-comparison-over-sampling-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_comparison_over_sampling.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_comparison_over_sampling.py</span></code></a></div>

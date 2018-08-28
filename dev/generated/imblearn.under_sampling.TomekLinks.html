@@ -204,7 +204,7 @@
 <h1><a class="reference internal" href="../api.html#module-imblearn.under_sampling" title="imblearn.under_sampling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imblearn.under_sampling</span></code></a>.TomekLinks<a class="headerlink" href="#imblearn-under-sampling-tomeklinks" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="imblearn.under_sampling.TomekLinks">
-<em class="property">class </em><code class="descclassname">imblearn.under_sampling.</code><code class="descname">TomekLinks</code><span class="sig-paren">(</span><em>sampling_strategy='auto'</em>, <em>return_indices=False</em>, <em>random_state=None</em>, <em>n_jobs=1</em>, <em>ratio=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/under_sampling/_prototype_selection/_tomek_links.py#L23"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../_modules/imblearn/under_sampling/_prototype_selection/_tomek_links.html#TomekLinks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">imblearn.under_sampling.</code><code class="descname">TomekLinks</code><span class="sig-paren">(</span><em>sampling_strategy='auto'</em>, <em>return_indices=False</em>, <em>random_state=None</em>, <em>n_jobs=1</em>, <em>ratio=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/under_sampling/_prototype_selection/_tomek_links.py#L23"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../_modules/imblearn/under_sampling/_prototype_selection/_tomek_links.html#TomekLinks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to perform under-sampling by removing Tomek’s links.</p>
 <p>Read more in the <a class="reference internal" href="../under_sampling.html#tomek-links"><span class="std std-ref">User Guide</span></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -291,38 +291,39 @@ Cybernetics, IEEE Transactions on, vol. 6, pp 769-772, 2010.</td></tr>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Original dataset shape </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
 <span class="go">Original dataset shape Counter({1: 900, 0: 100})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tl</span> <span class="o">=</span> <span class="n">TomekLinks</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X_res</span><span class="p">,</span> <span class="n">y_res</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_res</span><span class="p">,</span> <span class="n">y_res</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Resampled dataset shape </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_res</span><span class="p">))</span>
 <span class="go">Resampled dataset shape Counter({1: 897, 0: 100})</span>
 </pre></div>
 </div>
 <dl class="method">
 <dt id="imblearn.under_sampling.TomekLinks.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>sampling_strategy='auto'</em>, <em>return_indices=False</em>, <em>random_state=None</em>, <em>n_jobs=1</em>, <em>ratio=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/under_sampling/_prototype_selection/_tomek_links.py#L83"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../_modules/imblearn/under_sampling/_prototype_selection/_tomek_links.html#TomekLinks.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>sampling_strategy='auto'</em>, <em>return_indices=False</em>, <em>random_state=None</em>, <em>n_jobs=1</em>, <em>ratio=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/under_sampling/_prototype_selection/_tomek_links.py#L83"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../_modules/imblearn/under_sampling/_prototype_selection/_tomek_links.html#TomekLinks.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="imblearn.under_sampling.TomekLinks.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/base.py#L174"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the classes statistics before to perform sampling.</p>
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/base.py#L33"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check inputs and statistics of the sampler.</p>
+<p>You should use <code class="docutils literal notranslate"><span class="pre">fit_resample</span></code> in all cases.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
 <dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix}, shape (n_samples, n_features)</span></dt>
-<dd><p class="first last">Matrix containing the data which have to be sampled.</p>
+<dd><p class="first last">Data array.</p>
 </dd>
 <dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape (n_samples,)</span></dt>
-<dd><p class="first last">Corresponding label for each sample in X.</p>
+<dd><p class="first last">Target array.</p>
 </dd>
 </dl>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>self</strong> <span class="classifier-delimiter">:</span> <span class="classifier">object,</span></dt>
-<dd><p class="first last">Return self.</p>
+<dt><strong>self</strong> <span class="classifier-delimiter">:</span> <span class="classifier">object</span></dt>
+<dd><p class="first last">Return the instance itself.</p>
 </dd>
 </dl>
 </td>
@@ -332,9 +333,9 @@ Cybernetics, IEEE Transactions on, vol. 6, pp 769-772, 2010.</td></tr>
 </dd></dl>
 
 <dl class="method">
-<dt id="imblearn.under_sampling.TomekLinks.fit_sample">
-<code class="descname">fit_sample</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/base.py#L72"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.fit_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit the statistics and resample the data directly.</p>
+<dt id="imblearn.under_sampling.TomekLinks.fit_resample">
+<code class="descname">fit_resample</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/base.py#L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.fit_resample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resample the dataset.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -354,7 +355,39 @@ Cybernetics, IEEE Transactions on, vol. 6, pp 769-772, 2010.</td></tr>
 <dd><p class="first last">The array containing the resampled data.</p>
 </dd>
 <dt><strong>y_resampled</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape (n_samples_new,)</span></dt>
-<dd><p class="first last">The corresponding label of <cite>X_resampled</cite></p>
+<dd><p class="first last">The corresponding label of <cite>X_resampled</cite>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="imblearn.under_sampling.TomekLinks.fit_sample">
+<code class="descname">fit_sample</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/base.py#L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.fit_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resample the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix}, shape (n_samples, n_features)</span></dt>
+<dd><p class="first last">Matrix containing the data which have to be sampled.</p>
+</dd>
+<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape (n_samples,)</span></dt>
+<dd><p class="first last">Corresponding label for each sample in X.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>X_resampled</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix}, shape (n_samples_new, n_features)</span></dt>
+<dd><p class="first last">The array containing the resampled data.</p>
+</dd>
+<dt><strong>y_resampled</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape (n_samples_new,)</span></dt>
+<dd><p class="first last">The corresponding label of <cite>X_resampled</cite>.</p>
 </dd>
 </dl>
 </td>
@@ -365,7 +398,7 @@ Cybernetics, IEEE Transactions on, vol. 6, pp 769-772, 2010.</td></tr>
 
 <dl class="method">
 <dt id="imblearn.under_sampling.TomekLinks.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/../../miniconda/envs/testenv/lib/python3.6/site-packages/sklearn/base.py#L213"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.get_params" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/../../miniconda/envs/testenv/lib/python3.6/site-packages/sklearn/base.py#L213"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -392,7 +425,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="staticmethod">
 <dt id="imblearn.under_sampling.TomekLinks.is_tomek">
-<em class="property">static </em><code class="descname">is_tomek</code><span class="sig-paren">(</span><em>y</em>, <em>nn_index</em>, <em>class_type</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/under_sampling/_prototype_selection/_tomek_links.py#L95"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../_modules/imblearn/under_sampling/_prototype_selection/_tomek_links.html#TomekLinks.is_tomek"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.is_tomek" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">is_tomek</code><span class="sig-paren">(</span><em>y</em>, <em>nn_index</em>, <em>class_type</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/under_sampling/_prototype_selection/_tomek_links.py#L95"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../_modules/imblearn/under_sampling/_prototype_selection/_tomek_links.html#TomekLinks.is_tomek"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.is_tomek" title="Permalink to this definition">¶</a></dt>
 <dd><p>is_tomek uses the target vector and the first neighbour of every
 sample point and looks for Tomek pairs. Returning a boolean vector with
 True for majority Tomek links.</p>
@@ -427,40 +460,8 @@ that are Tomek links.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="imblearn.under_sampling.TomekLinks.sample">
-<code class="descname">sample</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/base.py#L34"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resample the dataset.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix}, shape (n_samples, n_features)</span></dt>
-<dd><p class="first last">Matrix containing the data which have to be sampled.</p>
-</dd>
-<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape (n_samples,)</span></dt>
-<dd><p class="first last">Corresponding label for each sample in X.</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>X_resampled</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{ndarray, sparse matrix}, shape (n_samples_new, n_features)</span></dt>
-<dd><p class="first last">The array containing the resampled data.</p>
-</dd>
-<dt><strong>y_resampled</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray, shape (n_samples_new)</span></dt>
-<dd><p class="first last">The corresponding label of <cite>X_resampled</cite></p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="imblearn.under_sampling.TomekLinks.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/5730192/imblearn/../../miniconda/envs/testenv/lib/python3.6/site-packages/sklearn/base.py#L250"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.set_params" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn/blob/e49c30a/imblearn/../../miniconda/envs/testenv/lib/python3.6/site-packages/sklearn/base.py#L250"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imblearn.under_sampling.TomekLinks.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form

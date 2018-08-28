@@ -53,10 +53,10 @@ the current scikit-learn pipeline.
 
                  precision    recall  f1-score   support
 
-              0       0.86      1.00      0.93        50
-              1       1.00      0.84      0.91        50
+              0       0.85      1.00      0.92        50
+              1       1.00      0.82      0.90        50
 
-    avg / total       0.93      0.92      0.92       100
+    avg / total       0.92      0.91      0.91       100
 
 
 
@@ -130,7 +130,7 @@ the current scikit-learn pipeline.
 
 
     reject_sampler = FunctionSampler(func=outlier_rejection)
-    X_inliers, y_inliers = reject_sampler.fit_sample(X_train, y_train)
+    X_inliers, y_inliers = reject_sampler.fit_resample(X_train, y_train)
     plot_scatter(X_inliers, y_inliers, 'Training data without outliers')
 
     pipe = make_pipeline(FunctionSampler(func=outlier_rejection),
@@ -144,7 +144,7 @@ the current scikit-learn pipeline.
 
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  1.250 seconds)
+**Total running time of the script:** ( 0 minutes  1.361 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_outlier_rejections.py:

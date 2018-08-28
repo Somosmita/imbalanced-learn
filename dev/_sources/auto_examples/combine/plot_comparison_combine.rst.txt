@@ -76,7 +76,7 @@ to illustrate the characteristic of an algorithm.
 
 
     def plot_resampling(X, y, sampling, ax):
-        X_res, y_res = sampling.fit_sample(X, y)
+        X_res, y_res = sampling.fit_resample(X, y)
         ax.scatter(X_res[:, 0], X_res[:, 1], c=y_res, alpha=0.8, edgecolor='k')
         # make nice plotting
         ax.spines['top'].set_visible(False)
@@ -163,7 +163,7 @@ and ``SMOTEENN``. In general, ``SMOTEENN`` cleans more noisy data than
 
 
 
-**Total running time of the script:** ( 0 minutes  1.525 seconds)
+**Total running time of the script:** ( 0 minutes  1.565 seconds)
 
 
 .. _sphx_glr_download_auto_examples_combine_plot_comparison_combine.py:

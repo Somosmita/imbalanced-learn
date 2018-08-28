@@ -139,7 +139,7 @@ resampling and the number of samples in the minority class, respectively.
     sampling_strategy = 0.8
 
     rus = RandomUnderSampler(sampling_strategy=sampling_strategy)
-    X_res, y_res = rus.fit_sample(binary_X, binary_y)
+    X_res, y_res = rus.fit_resample(binary_X, binary_y)
     print('Information of the iris data set after making it '
           'balanced using a float and an under-sampling method: \n '
           'sampling_strategy={} \n y: {}'
@@ -175,7 +175,7 @@ class, respectively.
 
 
     ros = RandomOverSampler(sampling_strategy=sampling_strategy)
-    X_res, y_res = ros.fit_sample(binary_X, binary_y)
+    X_res, y_res = ros.fit_resample(binary_X, binary_y)
     print('Information of the iris data set after making it '
           'balanced using a float and an over-sampling method: \n '
           'sampling_strategy={} \n y: {}'
@@ -216,7 +216,7 @@ Note that we are using multiple classes from now on.
     sampling_strategy = 'not minority'
 
     rus = RandomUnderSampler(sampling_strategy=sampling_strategy)
-    X_res, y_res = rus.fit_sample(X, y)
+    X_res, y_res = rus.fit_resample(X, y)
     print('Information of the iris data set after making it '
           'balanced by under-sampling: \n sampling_strategy={} \n y: {}'
           .format(sampling_strategy, Counter(y_res)))
@@ -225,7 +225,7 @@ Note that we are using multiple classes from now on.
     sampling_strategy = 'not majority'
 
     ros = RandomOverSampler(sampling_strategy=sampling_strategy)
-    X_res, y_res = ros.fit_sample(X, y)
+    X_res, y_res = ros.fit_resample(X, y)
     print('Information of the iris data set after making it '
           'balanced by over-sampling: \n sampling_strategy={} \n y: {}'
           .format(sampling_strategy, Counter(y_res)))
@@ -271,7 +271,7 @@ equalized even if targeted.
 
     sampling_strategy = 'not minority'
     tl = TomekLinks(sampling_strategy)
-    X_res, y_res = tl.fit_sample(X, y)
+    X_res, y_res = tl.fit_resample(X, y)
     print('Information of the iris data set after making it '
           'balanced by cleaning sampling: \n sampling_strategy={} \n y: {}'
           .format(sampling_strategy, Counter(y_res)))
@@ -292,7 +292,7 @@ equalized even if targeted.
 
     Information of the iris data set after making it balanced by cleaning sampling: 
      sampling_strategy=not minority 
-     y: Counter({2: 47, 1: 20, 0: 10})
+     y: Counter({2: 46, 1: 19, 0: 10})
 
 
 ``sampling_strategy`` as a ``dict``
@@ -311,7 +311,7 @@ algorithms but not for the **cleaning algorithms**. Use a ``list`` instead.
     sampling_strategy = {0: 10, 1: 15, 2: 20}
 
     rus = RandomUnderSampler(sampling_strategy=sampling_strategy)
-    X_res, y_res = rus.fit_sample(X, y)
+    X_res, y_res = rus.fit_resample(X, y)
     print('Information of the iris data set after making it '
           'balanced by under-sampling: \n sampling_strategy={} \n y: {}'
           .format(sampling_strategy, Counter(y_res)))
@@ -320,7 +320,7 @@ algorithms but not for the **cleaning algorithms**. Use a ``list`` instead.
     sampling_strategy = {0: 25, 1: 35, 2: 47}
 
     ros = RandomOverSampler(sampling_strategy=sampling_strategy)
-    X_res, y_res = ros.fit_sample(X, y)
+    X_res, y_res = ros.fit_resample(X, y)
     print('Information of the iris data set after making it '
           'balanced by over-sampling: \n sampling_strategy={} \n y: {}'
           .format(sampling_strategy, Counter(y_res)))
@@ -370,7 +370,7 @@ otherwise.
 
     sampling_strategy = [0, 1, 2]
     tl = TomekLinks(sampling_strategy=sampling_strategy)
-    X_res, y_res = tl.fit_sample(X, y)
+    X_res, y_res = tl.fit_resample(X, y)
     print('Information of the iris data set after making it '
           'balanced by cleaning sampling: \n sampling_strategy={} \n y: {}'
           .format(sampling_strategy, Counter(y_res)))
@@ -391,7 +391,7 @@ otherwise.
 
     Information of the iris data set after making it balanced by cleaning sampling: 
      sampling_strategy=[0, 1, 2] 
-     y: Counter({2: 47, 1: 20, 0: 10})
+     y: Counter({2: 46, 1: 19, 0: 10})
 
 
 ``sampling_strategy`` as a callable
@@ -416,7 +416,7 @@ number of samples for each class.
 
 
     X_res, y_res = (RandomUnderSampler(sampling_strategy=ratio_multiplier)
-                    .fit_sample(X, y))
+                    .fit_resample(X, y))
 
     print('Information of the iris data set after balancing using a callable'
           ' mode:\n ratio={} \n y: {}'.format(ratio_multiplier, Counter(y_res)))
@@ -437,11 +437,11 @@ number of samples for each class.
  .. code-block:: none
 
     Information of the iris data set after balancing using a callable mode:
-     ratio=<function ratio_multiplier at 0x7eff459e8bf8> 
+     ratio=<function ratio_multiplier at 0x7f47c80f8c80> 
      y: Counter({2: 44, 1: 14, 0: 10})
 
 
-**Total running time of the script:** ( 0 minutes  0.576 seconds)
+**Total running time of the script:** ( 0 minutes  0.822 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_sampling_strategy_usage.py:

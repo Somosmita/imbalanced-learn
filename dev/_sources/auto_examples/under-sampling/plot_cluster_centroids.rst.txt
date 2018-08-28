@@ -52,12 +52,12 @@ An illustration of the cluster centroids method.
 
     # Apply Cluster Centroids
     cc = ClusterCentroids()
-    X_resampled, y_resampled = cc.fit_sample(X, y)
+    X_resampled, y_resampled = cc.fit_resample(X, y)
     X_res_vis_soft = pca.transform(X_resampled)
 
     # Use hard voting instead of soft voting
     cc = ClusterCentroids(voting='hard')
-    X_resampled, y_resampled = cc.fit_sample(X, y)
+    X_resampled, y_resampled = cc.fit_resample(X, y)
     X_res_vis_hard = pca.transform(X_resampled)
 
     # Two subplots, unpack the axes array immediately
@@ -108,7 +108,7 @@ An illustration of the cluster centroids method.
     plt.tight_layout(pad=3)
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  0.394 seconds)
+**Total running time of the script:** ( 0 minutes  0.545 seconds)
 
 
 .. _sphx_glr_download_auto_examples_under-sampling_plot_cluster_centroids.py:

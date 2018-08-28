@@ -418,7 +418,7 @@
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
 <span class="sd">    &gt;&gt;&gt; sm = BorderlineSMOTE(random_state=42)</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = sm.fit_sample(X, y)</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = sm.fit_resample(X, y)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res))</span>
 <span class="sd">    Resampled dataset shape Counter({{0: 900, 1: 900}})</span>
 
@@ -446,6 +446,10 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The possible &quot;kind&quot; of algorithm are &#39;</span>
                              <span class="s1">&#39;&quot;borderline-1&quot; and &quot;borderline-2&quot;.&#39;</span>
                              <span class="s1">&#39;Got </span><span class="si">{}</span><span class="s1"> instead.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">))</span>
+
+    <span class="c1"># FIXME: rename _sample -&gt; _fit_resample in 0.6</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_estimator</span><span class="p">()</span>
@@ -594,7 +598,7 @@
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
 <span class="sd">    &gt;&gt;&gt; sm = SVMSMOTE(random_state=42)</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = sm.fit_sample(X, y)</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = sm.fit_resample(X, y)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res))</span>
 <span class="sd">    Resampled dataset shape Counter({{0: 900, 1: 900}})</span>
 
@@ -628,6 +632,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">raise_isinstance_error</span><span class="p">(</span><span class="s1">&#39;svm_estimator&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">SVC</span><span class="p">],</span>
                                    <span class="bp">self</span><span class="o">.</span><span class="n">svm_estimator</span><span class="p">)</span>
+
+    <span class="c1"># FIXME: rename _sample -&gt; _fit_resample in 0.6</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_estimator</span><span class="p">()</span>
@@ -813,7 +821,7 @@
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
 <span class="sd">    &gt;&gt;&gt; sm = SMOTE(random_state=42)</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = sm.fit_sample(X, y)</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = sm.fit_resample(X, y)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res))</span>
 <span class="sd">    Resampled dataset shape Counter({{0: 900, 1: 900}})</span>
 
@@ -895,10 +903,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">nn_m_</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;n_jobs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">})</span>
 
     <span class="c1"># FIXME: to be removed in 0.6</span>
-<div class="viewcode-block" id="SMOTE.fit"><a class="viewcode-back" href="../../../generated/imblearn.over_sampling.SMOTE.html#imblearn.over_sampling.SMOTE.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_estimator</span><span class="p">()</span>
-        <span class="n">BaseSMOTE</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="c1"># FIXME: uncomment in version 0.6</span>
