@@ -18,52 +18,6 @@ the current scikit-learn pipeline.
 
 
 
-
-.. rst-class:: sphx-glr-horizontal
-
-
-    *
-
-      .. image:: /auto_examples/images/sphx_glr_plot_outlier_rejections_001.png
-            :class: sphx-glr-multi-img
-
-    *
-
-      .. image:: /auto_examples/images/sphx_glr_plot_outlier_rejections_002.png
-            :class: sphx-glr-multi-img
-
-    *
-
-      .. image:: /auto_examples/images/sphx_glr_plot_outlier_rejections_003.png
-            :class: sphx-glr-multi-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    precision    recall  f1-score   support
-
-              0       1.00      1.00      1.00        50
-              1       1.00      1.00      1.00        50
-
-    avg / total       1.00      1.00      1.00       100
-
-                 precision    recall  f1-score   support
-
-              0       0.85      1.00      0.92        50
-              1       1.00      0.82      0.90        50
-
-    avg / total       0.92      0.91      0.91       100
-
-
-
-
-|
-
-
 .. code-block:: python
 
 
@@ -87,6 +41,7 @@ the current scikit-learn pipeline.
 
 
     def plot_scatter(X, y, title):
+        """Function to plot some data as a scatter plot."""
         plt.figure()
         plt.scatter(X[y == 1, 0], X[y == 1, 1], label='Class #1')
         plt.scatter(X[y == 0, 0], X[y == 0, 1], label='Class #0')
@@ -94,7 +49,21 @@ the current scikit-learn pipeline.
         plt.title(title)
 
 
-    # Generate contaminated training data
+
+
+
+
+
+Toy data generation
+#############################################################################
+
+We are generating some non Gaussian data set contaminated with some unform
+noise.
+
+
+.. code-block:: python
+
+
     moons, _ = make_moons(n_samples=500, noise=0.05)
     blobs, _ = make_blobs(n_samples=500, centers=[(-0.75, 2.25),
                                                   (1.0, 2.0)],
@@ -108,7 +77,21 @@ the current scikit-learn pipeline.
 
     plot_scatter(X_train, y_train, 'Training dataset')
 
-    # Generate non-contaminated testing data
+
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_outlier_rejections_001.png
+    :class: sphx-glr-single-img
+
+
+
+
+We will generate some cleaned test data without outliers.
+
+
+.. code-block:: python
+
+
     moons, _ = make_moons(n_samples=50, noise=0.05)
     blobs, _ = make_blobs(n_samples=50, centers=[(-0.75, 2.25),
                                                  (1.0, 2.0)],
@@ -120,7 +103,29 @@ the current scikit-learn pipeline.
     plot_scatter(X_test, y_test, 'Testing dataset')
 
 
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_outlier_rejections_002.png
+    :class: sphx-glr-single-img
+
+
+
+
+How to use the :class:`imblearn.FunctionSampler`
+#############################################################################
+
+We first define a function which will use
+:class:`sklearn.ensemble.IsolationForest` to eliminate some outliers from
+our dataset during training. The function passed to the
+:class:`imblearn.FunctionSampler` will be called when using the method
+``fit_resample``.
+
+
+.. code-block:: python
+
+
     def outlier_rejection(X, y):
+        """This will be our function used to resample our dataset."""
         model = IsolationForest(max_samples=100,
                                 contamination=0.4,
                                 random_state=rng)
@@ -133,6 +138,25 @@ the current scikit-learn pipeline.
     X_inliers, y_inliers = reject_sampler.fit_resample(X_train, y_train)
     plot_scatter(X_inliers, y_inliers, 'Training data without outliers')
 
+
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_outlier_rejections_003.png
+    :class: sphx-glr-single-img
+
+
+
+
+Integrate it within a pipeline
+#############################################################################
+
+By elimnating outliers before the training, the classifier will be less
+affected during the prediction.
+
+
+.. code-block:: python
+
+
     pipe = make_pipeline(FunctionSampler(func=outlier_rejection),
                          LogisticRegression(random_state=rng))
     y_pred = pipe.fit(X_train, y_train).predict(X_test)
@@ -144,7 +168,31 @@ the current scikit-learn pipeline.
 
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  1.361 seconds)
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    precision    recall  f1-score   support
+
+              0       1.00      1.00      1.00        50
+              1       1.00      1.00      1.00        50
+
+    avg / total       1.00      1.00      1.00       100
+
+                 precision    recall  f1-score   support
+
+              0       0.88      1.00      0.93        50
+              1       1.00      0.86      0.92        50
+
+    avg / total       0.94      0.93      0.93       100
+
+
+**Total running time of the script:** ( 0 minutes  0.958 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_outlier_rejections.py:
