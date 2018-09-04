@@ -173,7 +173,6 @@
 <span class="c1">#          Christos Aridas</span>
 <span class="c1"># License: MIT</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
 
@@ -182,14 +181,13 @@
 <span class="kn">from</span> <span class="nn">..under_sampling</span> <span class="k">import</span> <span class="n">RandomUnderSampler</span>
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">check_sampling_strategy</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
 
 <div class="viewcode-block" id="make_imbalance"><a class="viewcode-back" href="../../../generated/imblearn.datasets.make_imbalance.html#imblearn.datasets.make_imbalance">[docs]</a><span class="k">def</span> <span class="nf">make_imbalance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>
                    <span class="n">y</span><span class="p">,</span>
                    <span class="n">sampling_strategy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                    <span class="n">ratio</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Turns a dataset into an imbalanced dataset at specific ratio.</span>
 
@@ -227,6 +225,9 @@
 <span class="sd">        If RandomState instance, random_state is the random number generator;</span>
 <span class="sd">        If None, the random number generator is the RandomState instance used</span>
 <span class="sd">        by np.random.</span>
+
+<span class="sd">    verbose : bool, optional (default=False)</span>
+<span class="sd">        Show information regarding the sampling.</span>
 
 <span class="sd">    kwargs : dict, optional</span>
 <span class="sd">        Dictionary of additional keyword arguments to pass to</span>
@@ -283,14 +284,16 @@
                          <span class="s2">&quot;function returning a dictionary. Got </span><span class="si">{}</span><span class="s2"> instead.&quot;</span>
                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sampling_strategy</span><span class="p">)))</span>
 
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;The original target distribution in the dataset is: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-                <span class="n">target_stats</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The original target distribution in the dataset is: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+              <span class="n">target_stats</span><span class="p">)</span>
     <span class="n">rus</span> <span class="o">=</span> <span class="n">RandomUnderSampler</span><span class="p">(</span>
         <span class="n">sampling_strategy</span><span class="o">=</span><span class="n">sampling_strategy_</span><span class="p">,</span>
         <span class="n">replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
     <span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span> <span class="o">=</span> <span class="n">rus</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Make the dataset imbalanced: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_resampled</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Make the dataset imbalanced: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_resampled</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span></div>
 </pre></div>

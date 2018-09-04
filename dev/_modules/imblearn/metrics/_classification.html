@@ -183,7 +183,6 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">getcallargs</span>
@@ -200,8 +199,6 @@
     <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">signature</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sklearn.externals.funcsigs</span> <span class="k">import</span> <span class="n">signature</span>
-
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="sensitivity_specificity_support"><a class="viewcode-back" href="../../../generated/imblearn.metrics.sensitivity_specificity_support.html#imblearn.metrics.sensitivity_specificity_support">[docs]</a><span class="k">def</span> <span class="nf">sensitivity_specificity_support</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
@@ -759,8 +756,6 @@
             <span class="n">warn_for</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;specificity&#39;</span><span class="p">,</span> <span class="s1">&#39;specificity&#39;</span><span class="p">),</span>
             <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span>
 
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;The sensitivity and specificity are : </span><span class="si">%s</span><span class="s1"> - </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sen</span><span class="p">,</span>
-                                                                        <span class="n">spe</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sen</span> <span class="o">*</span> <span class="n">spe</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">present_labels</span> <span class="o">=</span> <span class="n">unique_labels</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>

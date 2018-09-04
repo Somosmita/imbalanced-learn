@@ -183,12 +183,13 @@
 <ul class="simple">
 <li>numpy (&gt;=1.8.2)</li>
 <li>scipy (&gt;=0.13.3)</li>
-<li>scikit-learn (&gt;=0.19.0)</li>
+<li>scikit-learn (&gt;=0.20)</li>
 <li>keras 2 (optional)</li>
 <li>tensorflow (optional)</li>
 </ul>
 <p>Our release policy is to follow the scikit-learn releases in order to
-synchronize the new feature.</p>
+synchronize the new feature. <strong>imbalanced-learn 0.4 is the last version to
+support Python 2.7</strong></p>
 </div>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
@@ -221,6 +222,10 @@ commands to get a copy from Github and install all dependencies:</p>
 </div>
 <p>You wish to test the coverage of your version:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make coverage
+</pre></div>
+</div>
+<p>You can also use <cite>pytest</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pytest imblearn -v
 </pre></div>
 </div>
 </div>

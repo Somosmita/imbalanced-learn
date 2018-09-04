@@ -1,5 +1,9 @@
 :orphan:
 
+
+
+.. _sphx_glr_auto_examples:
+
 .. _general_examples:
 
 General examples
@@ -51,6 +55,10 @@ General-purpose and introductory examples for the `imbalanced-learn` toolbox.
 .. raw:: html
 
     <div style='clear:both'></div>
+
+
+
+.. _sphx_glr_auto_examples_applications:
 
 .. _realword_examples:
 
@@ -144,6 +152,10 @@ Examples which use real-word dataset.
 
     <div style='clear:both'></div>
 
+
+
+.. _sphx_glr_auto_examples_combine:
+
 .. _combine_examples:
 
 Examples using combine class methods
@@ -216,6 +228,10 @@ Combine methods mixed over- and under-sampling methods. Generally SMOTE is used 
 
     <div style='clear:both'></div>
 
+
+
+.. _sphx_glr_auto_examples_datasets:
+
 .. _dataset_examples:
 
 Dataset examples
@@ -247,6 +263,10 @@ Examples concerning the :mod:`imblearn.datasets` module.
 .. raw:: html
 
     <div style='clear:both'></div>
+
+
+
+.. _sphx_glr_auto_examples_ensemble:
 
 .. _ensemble_examples:
 
@@ -322,6 +342,10 @@ In fact, an ensemble of balanced sets is created and used to later train any cla
 
     <div style='clear:both'></div>
 
+
+
+.. _sphx_glr_auto_examples_evaluation:
+
 .. _evaluation_examples:
 
 Evaluation examples
@@ -374,6 +398,10 @@ Examples illustrating how classification using imbalanced dataset can be done.
 
     <div style='clear:both'></div>
 
+
+
+.. _sphx_glr_auto_examples_model_selection:
+
 .. _model_selection_examples:
 
 Model Selection
@@ -405,6 +433,10 @@ Examples related to the selection of balancing methods.
 .. raw:: html
 
     <div style='clear:both'></div>
+
+
+
+.. _sphx_glr_auto_examples_over-sampling:
 
 .. _over_sampling_examples:
 
@@ -518,6 +550,10 @@ Data balancing can be performed by over-sampling such that new samples are gener
 
     <div style='clear:both'></div>
 
+
+
+.. _sphx_glr_auto_examples_pipeline:
+
 .. _pipeline_examples:
 
 Pipeline examples
@@ -548,6 +584,10 @@ Example of how to use the a pipeline to include under-sampling with `scikit-lear
 .. raw:: html
 
     <div style='clear:both'></div>
+
+
+
+.. _sphx_glr_auto_examples_under-sampling:
 
 .. _under_sampling_examples:
 
