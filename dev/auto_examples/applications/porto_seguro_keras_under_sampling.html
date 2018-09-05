@@ -340,13 +340,13 @@ mini-batches.</p>
 </div>
 <p>In the contrary, we will use imbalanced-learn to create a generator of
 mini-batches which will yield balanced mini-batches.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">imblearn.keras</span> <span class="kn">import</span> <span class="n">BalancedBatchGenerator</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">imblearn.keras</span> <span class="kn">import</span> <a href="../../generated/imblearn.keras.BalancedBatchGenerator.html#imblearn.keras.BalancedBatchGenerator" title="View documentation for imblearn.keras.BalancedBatchGenerator"><span class="n">BalancedBatchGenerator</span></a>
 
 
 <span class="nd">@timeit</span>
 <span class="k">def</span> <span class="nf">fit_predict_balanced_model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">make_model</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">training_generator</span> <span class="o">=</span> <span class="n">BalancedBatchGenerator</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+    <span class="n">training_generator</span> <span class="o">=</span> <a href="../../generated/imblearn.keras.BalancedBatchGenerator.html#imblearn.keras.BalancedBatchGenerator" title="View documentation for imblearn.keras.BalancedBatchGenerator"><span class="n">BalancedBatchGenerator</span></a><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
                                                 <span class="n">batch_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
                                                 <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="n">training_generator</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>

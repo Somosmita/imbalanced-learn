@@ -130,10 +130,13 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/imblearn.ensemble.EasyEnsembleClassifier.html"><code class="docutils literal notranslate"><span class="pre">imblearn.ensemble</span></code>.EasyEnsembleClassifier</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#imblearn-keras-batch-generator-for-keras"><code class="docutils literal notranslate"><span class="pre">imblearn.keras</span></code>: Batch generator for Keras</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="#module-imblearn.keras"><code class="docutils literal notranslate"><span class="pre">imblearn.keras</span></code>: Batch generator for Keras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/imblearn.keras.BalancedBatchGenerator.html"><code class="docutils literal notranslate"><span class="pre">imblearn.keras</span></code>.BalancedBatchGenerator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/imblearn.keras.balanced_batch_generator.html"><code class="docutils literal notranslate"><span class="pre">imblearn.keras</span></code>.balanced_batch_generator</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#imblearn-tensorflow-batch-generator-for-tensorflow"><code class="docutils literal notranslate"><span class="pre">imblearn.tensorflow</span></code>: Batch generator for TensorFlow</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="#module-imblearn.tensorflow"><code class="docutils literal notranslate"><span class="pre">imblearn.tensorflow</span></code>: Batch generator for TensorFlow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/imblearn.tensorflow.balanced_batch_generator.html"><code class="docutils literal notranslate"><span class="pre">imblearn.tensorflow</span></code>.balanced_batch_generator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a><ul>
@@ -377,16 +380,18 @@ under-sampled subsets combined inside an ensemble.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="imblearn-keras-batch-generator-for-keras">
-<span id="keras-ref"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">imblearn.keras</span></code>: Batch generator for Keras<a class="headerlink" href="#imblearn-keras-batch-generator-for-keras" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-imblearn.keras">
+<span id="imblearn-keras-batch-generator-for-keras"></span><span id="keras-ref"></span><h2><a class="reference internal" href="#module-imblearn.keras" title="imblearn.keras"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imblearn.keras</span></code></a>: Batch generator for Keras<a class="headerlink" href="#module-imblearn.keras" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-imblearn.keras" title="imblearn.keras"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imblearn.keras</span></code></a> provides utilities to deal with imbalanced dataset
+in keras.</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">keras.BalancedBatchGenerator</span></code></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/imblearn.keras.BalancedBatchGenerator.html#imblearn.keras.BalancedBatchGenerator" title="imblearn.keras.BalancedBatchGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keras.BalancedBatchGenerator</span></code></a>(X,&nbsp;y[,&nbsp;…])</td>
+<td>Create balanced batches when training a keras model.</td>
 </tr>
 </tbody>
 </table>
@@ -396,22 +401,24 @@ under-sampled subsets combined inside an ensemble.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">keras.balanced_batch_generator</span></code></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/imblearn.keras.balanced_batch_generator.html#imblearn.keras.balanced_batch_generator" title="imblearn.keras.balanced_batch_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keras.balanced_batch_generator</span></code></a>(X,&nbsp;y[,&nbsp;…])</td>
+<td>Create a balanced batch generator to train keras model.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="imblearn-tensorflow-batch-generator-for-tensorflow">
-<span id="tensorflow-ref"></span><h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">imblearn.tensorflow</span></code>: Batch generator for TensorFlow<a class="headerlink" href="#imblearn-tensorflow-batch-generator-for-tensorflow" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-imblearn.tensorflow">
+<span id="imblearn-tensorflow-batch-generator-for-tensorflow"></span><span id="tensorflow-ref"></span><h2><a class="reference internal" href="#module-imblearn.tensorflow" title="imblearn.tensorflow"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imblearn.tensorflow</span></code></a>: Batch generator for TensorFlow<a class="headerlink" href="#module-imblearn.tensorflow" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-imblearn.tensorflow" title="imblearn.tensorflow"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imblearn.tensorflow</span></code></a> provides utilities to deal with imbalanced
+dataset in tensorflow.</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensorflow.balanced_batch_generator</span></code></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/imblearn.tensorflow.balanced_batch_generator.html#imblearn.tensorflow.balanced_batch_generator" title="imblearn.tensorflow.balanced_batch_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensorflow.balanced_batch_generator</span></code></a>(X,&nbsp;y[,&nbsp;…])</td>
+<td>Create a balanced batch generator to train keras model.</td>
 </tr>
 </tbody>
 </table>

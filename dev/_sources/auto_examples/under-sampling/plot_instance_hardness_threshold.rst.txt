@@ -79,7 +79,9 @@ An illustration of the instance hardness threshold method.
             c0, c1 = plot_resampling(ax, X_vis, y, 'Original set')
         else:
             iht = InstanceHardnessThreshold(sampling_strategy=sampling_strategy,
-                                            estimator=LogisticRegression(),
+                                            estimator=LogisticRegression(
+                                                solver='lbfgs',
+                                                multi_class='auto'),
                                             return_indices=True)
             X_res, y_res, idx_res = iht.fit_resample(X, y)
             X_res_vis = pca.transform(X_res)
@@ -98,7 +100,7 @@ An illustration of the instance hardness threshold method.
     plt.tight_layout(pad=3)
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  0.408 seconds)
+**Total running time of the script:** ( 0 minutes  0.497 seconds)
 
 
 .. _sphx_glr_download_auto_examples_under-sampling_plot_instance_hardness_threshold.py:

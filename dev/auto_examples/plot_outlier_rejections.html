@@ -262,7 +262,8 @@ our dataset during training. The function passed to the
     <span class="sd">&quot;&quot;&quot;This will be our function used to resample our dataset.&quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="View documentation for sklearn.ensemble.IsolationForest"><span class="n">IsolationForest</span></a><span class="p">(</span><span class="n">max_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                             <span class="n">contamination</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
-                            <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">,</span>
+                            <span class="n">behaviour</span><span class="o">=</span><span class="s1">&#39;new&#39;</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">X</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
@@ -280,11 +281,12 @@ our dataset during training. The function passed to the
 <p>By elimnating outliers before the training, the classifier will be less
 affected during the prediction.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <a href="../generated/imblearn.pipeline.make_pipeline.html#imblearn.pipeline.make_pipeline" title="View documentation for imblearn.pipeline.make_pipeline"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="../generated/imblearn.FunctionSampler.html#imblearn.FunctionSampler" title="View documentation for imblearn.FunctionSampler"><span class="n">FunctionSampler</span></a><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">outlier_rejection</span><span class="p">),</span>
-                     <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="View documentation for sklearn.linear_model.LogisticRegression"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">))</span>
+                     <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="View documentation for sklearn.linear_model.LogisticRegression"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="n">multi_class</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                                        <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">))</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html#sklearn.metrics.classification_report" title="View documentation for sklearn.metrics.classification_report"><span class="n">classification_report</span></a><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
-<span class="n">clf</span> <span class="o">=</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="View documentation for sklearn.linear_model.LogisticRegression"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="View documentation for sklearn.linear_model.LogisticRegression"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="n">multi_class</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html#sklearn.metrics.classification_report" title="View documentation for sklearn.metrics.classification_report"><span class="n">classification_report</span></a><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
@@ -294,20 +296,24 @@ affected during the prediction.</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>precision    recall  f1-score   support
 
-          0       1.00      1.00      1.00        50
-          1       1.00      1.00      1.00        50
+           0       1.00      1.00      1.00        50
+           1       1.00      1.00      1.00        50
 
-avg / total       1.00      1.00      1.00       100
+   micro avg       1.00      1.00      1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
 
-             precision    recall  f1-score   support
+              precision    recall  f1-score   support
 
-          0       0.88      1.00      0.93        50
-          1       1.00      0.86      0.92        50
+           0       0.85      1.00      0.92        50
+           1       1.00      0.82      0.90        50
 
-avg / total       0.94      0.93      0.93       100
+   micro avg       0.91      0.91      0.91       100
+   macro avg       0.92      0.91      0.91       100
+weighted avg       0.92      0.91      0.91       100
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.958 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.875 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-outlier-rejections-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_outlier_rejections.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_outlier_rejections.py</span></code></a></div>

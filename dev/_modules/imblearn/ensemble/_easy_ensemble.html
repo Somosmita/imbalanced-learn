@@ -261,9 +261,9 @@
 <span class="sd">    ... n_features=20, n_clusters_per_class=1, n_samples=1000, random_state=10)</span>
 <span class="sd">    &gt;&gt;&gt; print(&#39;Original dataset shape %s&#39; % Counter(y))</span>
 <span class="sd">    Original dataset shape Counter({{1: 900, 0: 100}})</span>
-<span class="sd">    &gt;&gt;&gt; ee = EasyEnsemble(random_state=42)</span>
-<span class="sd">    &gt;&gt;&gt; X_res, y_res = ee.fit_resample(X, y)</span>
-<span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res[0]))</span>
+<span class="sd">    &gt;&gt;&gt; ee = EasyEnsemble(random_state=42) # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; X_res, y_res = ee.fit_resample(X, y) # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;Resampled dataset shape %s&#39; % Counter(y_res[0])) # doctest: +SKIP</span>
 <span class="sd">    Resampled dataset shape Counter({{0: 100, 1: 100}})</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

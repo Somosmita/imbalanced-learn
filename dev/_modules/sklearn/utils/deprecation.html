@@ -246,6 +246,9 @@
             <span class="k">return</span> <span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_doc</span><span class="p">(</span><span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+        <span class="c1"># Add a reference to the wrapped function so that we can introspect</span>
+        <span class="c1"># on function arguments in Python 2 (already works in Python 3)</span>
+        <span class="n">wrapped</span><span class="o">.</span><span class="n">__wrapped__</span> <span class="o">=</span> <span class="n">fun</span>
 
         <span class="k">return</span> <span class="n">wrapped</span>
 
@@ -291,6 +294,15 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DeprecationDict</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the value corresponding to key, else default.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : any hashable object</span>
+<span class="sd">            The key</span>
+<span class="sd">        default : object, optional</span>
+<span class="sd">            The default returned when key is not in dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># dict does not implement it like this, hence it needs to be overridden</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
@@ -298,7 +310,13 @@
             <span class="k">return</span> <span class="n">default</span>
 
     <span class="k">def</span> <span class="nf">add_warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a warning to be triggered when the specified key is read&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Add a warning to be triggered when the specified key is read</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : any hashable object</span>
+<span class="sd">            The key</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_deprecations</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 

@@ -186,8 +186,8 @@
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">six</span>
-<span class="kn">from</span> <span class="nn">sklearn.externals.joblib</span> <span class="k">import</span> <span class="n">Memory</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.metaestimators</span> <span class="k">import</span> <span class="n">if_delegate_has_method</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="k">import</span> <span class="n">check_memory</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pipeline&#39;</span><span class="p">,</span> <span class="s1">&#39;make_pipeline&#39;</span><span class="p">]</span>
 
@@ -325,15 +325,7 @@
     <span class="k">def</span> <span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_steps</span><span class="p">()</span>
         <span class="c1"># Setup the memory</span>
-        <span class="n">memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span>
-        <span class="k">if</span> <span class="n">memory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="n">cachedir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
-            <span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="n">cachedir</span><span class="o">=</span><span class="n">memory</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="n">Memory</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;memory&#39; should either be a string or&quot;</span>
-                             <span class="s2">&quot; a joblib.Memory instance, got&quot;</span>
-                             <span class="s2">&quot; &#39;memory=</span><span class="si">{!r}</span><span class="s2">&#39; instead.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">memory</span><span class="p">))</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="n">check_memory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">)</span>
 
         <span class="n">fit_transform_one_cached</span> <span class="o">=</span> <span class="n">memory</span><span class="o">.</span><span class="n">cache</span><span class="p">(</span><span class="n">_fit_transform_one</span><span class="p">)</span>
         <span class="n">fit_resample_one_cached</span> <span class="o">=</span> <span class="n">memory</span><span class="o">.</span><span class="n">cache</span><span class="p">(</span><span class="n">_fit_resample_one</span><span class="p">)</span>
@@ -349,10 +341,20 @@
             <span class="k">if</span> <span class="n">transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">memory</span><span class="o">.</span><span class="n">cachedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="c1"># we do not clone when caching is disabled to preserve</span>
-                    <span class="c1"># backward compatibility</span>
-                    <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">transformer</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">):</span>
+                    <span class="c1"># joblib &gt;= 0.12</span>
+                    <span class="k">if</span> <span class="n">memory</span><span class="o">.</span><span class="n">location</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># we do not clone when caching is disabled to</span>
+                        <span class="c1"># preserve backward compatibility</span>
+                        <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">transformer</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">transformer</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="s1">&#39;cachedir&#39;</span><span class="p">):</span>
+                    <span class="c1"># joblib &lt; 0.11</span>
+                    <span class="k">if</span> <span class="n">memory</span><span class="o">.</span><span class="n">cachedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># we do not clone when caching is disabled to</span>
+                        <span class="c1"># preserve backward compatibility</span>
+                        <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">transformer</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">transformer</span><span class="p">)</span>
                 <span class="c1"># Fit or load from cache the current transfomer</span>

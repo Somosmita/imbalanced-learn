@@ -183,7 +183,7 @@
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">sparse</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">clone</span><span class="p">,</span> <span class="n">TransformerMixin</span>
-<span class="kn">from</span> <span class="nn">.externals.joblib</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span><span class="p">,</span> <span class="n">Memory</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 <span class="kn">from</span> <span class="nn">.externals</span> <span class="k">import</span> <span class="n">six</span>
 <span class="kn">from</span> <span class="nn">.utils.metaestimators</span> <span class="k">import</span> <span class="n">if_delegate_has_method</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">Bunch</span>
@@ -191,7 +191,7 @@
 
 <span class="kn">from</span> <span class="nn">.utils.metaestimators</span> <span class="k">import</span> <span class="n">_BaseComposition</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pipeline&#39;</span><span class="p">,</span> <span class="s1">&#39;FeatureUnion&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pipeline&#39;</span><span class="p">,</span> <span class="s1">&#39;FeatureUnion&#39;</span><span class="p">,</span> <span class="s1">&#39;make_pipeline&#39;</span><span class="p">,</span> <span class="s1">&#39;make_union&#39;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">Pipeline</span><span class="p">(</span><span class="n">_BaseComposition</span><span class="p">):</span>
@@ -236,6 +236,11 @@
 <span class="sd">        Read-only attribute to access any step parameter by user given name.</span>
 <span class="sd">        Keys are step names and values are steps parameters.</span>
 
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    sklearn.pipeline.make_pipeline : convenience function for simplified</span>
+<span class="sd">        pipeline construction.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from sklearn import svm</span>
@@ -260,19 +265,19 @@
 <span class="sd">                    (&#39;svc&#39;, SVC(...))])</span>
 <span class="sd">    &gt;&gt;&gt; prediction = anova_svm.predict(X)</span>
 <span class="sd">    &gt;&gt;&gt; anova_svm.score(X, y)                        # doctest: +ELLIPSIS</span>
-<span class="sd">    0.829...</span>
+<span class="sd">    0.83</span>
 <span class="sd">    &gt;&gt;&gt; # getting the selected features chosen by anova_filter</span>
 <span class="sd">    &gt;&gt;&gt; anova_svm.named_steps[&#39;anova&#39;].get_support()</span>
 <span class="sd">    ... # doctest: +NORMALIZE_WHITESPACE</span>
 <span class="sd">    array([False, False,  True,  True, False, False, True,  True, False,</span>
 <span class="sd">           True,  False,  True,  True, False, True,  False, True, True,</span>
-<span class="sd">           False, False], dtype=bool)</span>
+<span class="sd">           False, False])</span>
 <span class="sd">    &gt;&gt;&gt; # Another way to get selected features chosen by anova_filter</span>
 <span class="sd">    &gt;&gt;&gt; anova_svm.named_steps.anova.get_support()</span>
 <span class="sd">    ... # doctest: +NORMALIZE_WHITESPACE</span>
 <span class="sd">    array([False, False,  True,  True, False, False, True,  True, False,</span>
 <span class="sd">           True,  False,  True,  True, False, True,  False, True, True,</span>
-<span class="sd">           False, False], dtype=bool)</span>
+<span class="sd">           False, False])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># BaseEstimator interface</span>
@@ -369,15 +374,27 @@
             <span class="k">if</span> <span class="n">transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="s1">&#39;cachedir&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">memory</span><span class="o">.</span><span class="n">cachedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="c1"># we do not clone when caching is disabled to preserve</span>
-                    <span class="c1"># backward compatibility</span>
-                    <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">transformer</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">):</span>
+                    <span class="c1"># joblib &gt;= 0.12</span>
+                    <span class="k">if</span> <span class="n">memory</span><span class="o">.</span><span class="n">location</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># we do not clone when caching is disabled to</span>
+                        <span class="c1"># preserve backward compatibility</span>
+                        <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">transformer</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">transformer</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="s1">&#39;cachedir&#39;</span><span class="p">):</span>
+                    <span class="c1"># joblib &lt; 0.11</span>
+                    <span class="k">if</span> <span class="n">memory</span><span class="o">.</span><span class="n">cachedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># we do not clone when caching is disabled to</span>
+                        <span class="c1"># preserve backward compatibility</span>
+                        <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">transformer</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">transformer</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">cloned_transformer</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">transformer</span><span class="p">)</span>
                 <span class="c1"># Fit or load from cache the current transfomer</span>
                 <span class="n">Xt</span><span class="p">,</span> <span class="n">fitted_transformer</span> <span class="o">=</span> <span class="n">fit_transform_one_cached</span><span class="p">(</span>
-                    <span class="n">cloned_transformer</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+                    <span class="n">cloned_transformer</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
                     <span class="o">**</span><span class="n">fit_params_steps</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
                 <span class="c1"># Replace the transformer of the step with the fitted</span>
                 <span class="c1"># transformer. This is necessary when loading the transformer</span>
@@ -455,7 +472,7 @@
             <span class="k">return</span> <span class="n">last_step</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
 
     <span class="nd">@if_delegate_has_method</span><span class="p">(</span><span class="n">delegate</span><span class="o">=</span><span class="s1">&#39;_final_estimator&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">predict_params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Apply transforms to the data, and predict with the final estimator</span>
 
 <span class="sd">        Parameters</span>
@@ -463,6 +480,14 @@
 <span class="sd">        X : iterable</span>
 <span class="sd">            Data to predict on. Must fulfill input requirements of first step</span>
 <span class="sd">            of the pipeline.</span>
+
+<span class="sd">        **predict_params : dict of string -&gt; object</span>
+<span class="sd">            Parameters to the ``predict`` called at the end of all</span>
+<span class="sd">            transformations in the pipeline. Note that while this may be</span>
+<span class="sd">            used to return uncertainties from some models with return_std</span>
+<span class="sd">            or return_cov, uncertainties that are generated by the</span>
+<span class="sd">            transformations in the pipeline are not propagated to the</span>
+<span class="sd">            final estimator.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -472,7 +497,7 @@
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">transform</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">Xt</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="o">**</span><span class="n">predict_params</span><span class="p">)</span>
 
     <span class="nd">@if_delegate_has_method</span><span class="p">(</span><span class="n">delegate</span><span class="o">=</span><span class="s1">&#39;_final_estimator&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
@@ -697,7 +722,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    *steps : list of estimators,</span>
+<span class="sd">    *steps : list of estimators.</span>
 
 <span class="sd">    memory : None, str or object with the joblib.Memory interface, optional</span>
 <span class="sd">        Used to cache the fitted transformers of the pipeline. By default,</span>
@@ -709,6 +734,11 @@
 <span class="sd">        inspect estimators within the pipeline. Caching the</span>
 <span class="sd">        transformers is advantageous when fitting is time consuming.</span>
 
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    sklearn.pipeline.Pipeline : Class for creating a pipeline of</span>
+<span class="sd">        transforms with a final estimator.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from sklearn.naive_bayes import GaussianNB</span>
@@ -718,7 +748,8 @@
 <span class="sd">    Pipeline(memory=None,</span>
 <span class="sd">             steps=[(&#39;standardscaler&#39;,</span>
 <span class="sd">                     StandardScaler(copy=True, with_mean=True, with_std=True)),</span>
-<span class="sd">                    (&#39;gaussiannb&#39;, GaussianNB(priors=None))])</span>
+<span class="sd">                    (&#39;gaussiannb&#39;,</span>
+<span class="sd">                     GaussianNB(priors=None, var_smoothing=1e-09))])</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -731,11 +762,14 @@
     <span class="k">return</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">_name_estimators</span><span class="p">(</span><span class="n">steps</span><span class="p">),</span> <span class="n">memory</span><span class="o">=</span><span class="n">memory</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_fit_one_transformer</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="c1"># weight and fit_params are not used but it allows _fit_one_transformer,</span>
+<span class="c1"># _transform_one and _fit_transform_one to have the same signature to</span>
+<span class="c1">#  factorize the code in ColumnTransformer</span>
+<span class="k">def</span> <span class="nf">_fit_one_transformer</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_one</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_transform_one</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="c1"># if we have a weight for this transformer, multiply output</span>
     <span class="k">if</span> <span class="n">weight</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -743,8 +777,7 @@
     <span class="k">return</span> <span class="n">res</span> <span class="o">*</span> <span class="n">weight</span>
 
 
-<span class="k">def</span> <span class="nf">_fit_transform_one</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
-                       <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_fit_transform_one</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="s1">&#39;fit_transform&#39;</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -775,15 +808,34 @@
 <span class="sd">        List of transformer objects to be applied to the data. The first</span>
 <span class="sd">        half of each tuple is the name of the transformer.</span>
 
-<span class="sd">    n_jobs : int, optional</span>
-<span class="sd">        Number of jobs to run in parallel (default 1).</span>
+<span class="sd">    n_jobs : int or None, optional (default=None)</span>
+<span class="sd">        Number of jobs to run in parallel.</span>
+<span class="sd">        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
+<span class="sd">        ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;`</span>
+<span class="sd">        for more details.</span>
 
 <span class="sd">    transformer_weights : dict, optional</span>
 <span class="sd">        Multiplicative weights for features per transformer.</span>
 <span class="sd">        Keys are transformer names, values the weights.</span>
 
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    sklearn.pipeline.make_union : convenience function for simplified</span>
+<span class="sd">        feature union construction.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.pipeline import FeatureUnion</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.decomposition import PCA, TruncatedSVD</span>
+<span class="sd">    &gt;&gt;&gt; union = FeatureUnion([(&quot;pca&quot;, PCA(n_components=1)),</span>
+<span class="sd">    ...                       (&quot;svd&quot;, TruncatedSVD(n_components=2))])</span>
+<span class="sd">    &gt;&gt;&gt; X = [[0., 1., 3], [2., 2., 5]]</span>
+<span class="sd">    &gt;&gt;&gt; union.fit_transform(X)    # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">    array([[ 1.5       ,  3.0...,  0.8...],</span>
+<span class="sd">           [-1.5       ,  5.7..., -0.4...]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transformer_list</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transformer_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transformer_list</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">transformer_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transformer_list</span> <span class="o">=</span> <span class="n">transformer_list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transformer_weights</span> <span class="o">=</span> <span class="n">transformer_weights</span>
@@ -834,7 +886,8 @@
                                 <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Generate (name, est, weight) tuples excluding None transformers</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate (name, trans, weight) tuples excluding None transformers</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">get_weight</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transformer_weights</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span>
         <span class="k">return</span> <span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">get_weight</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
@@ -902,7 +955,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_transformers</span><span class="p">()</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)(</span>
-            <span class="n">delayed</span><span class="p">(</span><span class="n">_fit_transform_one</span><span class="p">)(</span><span class="n">trans</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+            <span class="n">delayed</span><span class="p">(</span><span class="n">_fit_transform_one</span><span class="p">)(</span><span class="n">trans</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span>
                                         <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span><span class="p">())</span>
 
@@ -932,7 +985,7 @@
 <span class="sd">            sum of n_components (output dimension) over transformers.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Xs</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)(</span>
-            <span class="n">delayed</span><span class="p">(</span><span class="n">_transform_one</span><span class="p">)(</span><span class="n">trans</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+            <span class="n">delayed</span><span class="p">(</span><span class="n">_transform_one</span><span class="p">)(</span><span class="n">trans</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span><span class="p">())</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Xs</span><span class="p">:</span>
             <span class="c1"># All transformers are None</span>
@@ -962,19 +1015,27 @@
 <span class="sd">    ----------</span>
 <span class="sd">    *transformers : list of estimators</span>
 
-<span class="sd">    n_jobs : int, optional</span>
-<span class="sd">        Number of jobs to run in parallel (default 1).</span>
+<span class="sd">    n_jobs : int or None, optional (default=None)</span>
+<span class="sd">        Number of jobs to run in parallel.</span>
+<span class="sd">        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
+<span class="sd">        ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;`</span>
+<span class="sd">        for more details.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    f : FeatureUnion</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    sklearn.pipeline.FeatureUnion : Class for concatenating the results</span>
+<span class="sd">        of multiple transformer objects.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from sklearn.decomposition import PCA, TruncatedSVD</span>
 <span class="sd">    &gt;&gt;&gt; from sklearn.pipeline import make_union</span>
 <span class="sd">    &gt;&gt;&gt; make_union(PCA(), TruncatedSVD())    # doctest: +NORMALIZE_WHITESPACE</span>
-<span class="sd">    FeatureUnion(n_jobs=1,</span>
+<span class="sd">    FeatureUnion(n_jobs=None,</span>
 <span class="sd">           transformer_list=[(&#39;pca&#39;,</span>
 <span class="sd">                              PCA(copy=True, iterated_power=&#39;auto&#39;,</span>
 <span class="sd">                                  n_components=None, random_state=None,</span>
@@ -985,7 +1046,7 @@
 <span class="sd">                              random_state=None, tol=0.0))],</span>
 <span class="sd">           transformer_weights=None)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;n_jobs&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;n_jobs&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="c1"># We do not currently support `transformer_weights` as we may want to</span>
         <span class="c1"># change its type spec in make_union</span>
