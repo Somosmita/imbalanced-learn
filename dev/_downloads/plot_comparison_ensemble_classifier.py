@@ -191,7 +191,7 @@ eec = EasyEnsembleClassifier(n_estimators=10,
                              base_estimator=base_estimator,
                              n_jobs=-1)
 eec.fit(X_train, y_train)
-y_pred_eec = tree.predict(X_test)
+y_pred_eec = eec.predict(X_test)
 print('Easy ensemble classifier performance:')
 print('Balanced accuracy: {:.2f} - Geometric mean {:.2f}'
       .format(balanced_accuracy_score(y_test, y_pred_eec),

@@ -144,9 +144,9 @@ imbalanced set.
  .. code-block:: none
 
     Decision tree classifier performance:
-    Balanced accuracy: 0.74 - Geometric mean 0.71
-    [[1386   66]
-     [  74   83]]
+    Balanced accuracy: 0.76 - Geometric mean 0.73
+    [[1383   69]
+     [  69   88]]
 
 
 Classification using bagging classifier with and without sampling
@@ -304,7 +304,7 @@ Boosting classifier
                                  base_estimator=base_estimator,
                                  n_jobs=-1)
     eec.fit(X_train, y_train)
-    y_pred_eec = tree.predict(X_test)
+    y_pred_eec = eec.predict(X_test)
     print('Easy ensemble classifier performance:')
     print('Balanced accuracy: {:.2f} - Geometric mean {:.2f}'
           .format(balanced_accuracy_score(y_test, y_pred_eec),
@@ -329,12 +329,12 @@ Boosting classifier
  .. code-block:: none
 
     Easy ensemble classifier performance:
-    Balanced accuracy: 0.74 - Geometric mean 0.71
-    [[1386   66]
-     [  74   83]]
+    Balanced accuracy: 0.85 - Geometric mean 0.85
+    [[1215  237]
+     [  20  137]]
 
 
-**Total running time of the script:** ( 0 minutes  10.737 seconds)
+**Total running time of the script:** ( 0 minutes  9.218 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_comparison_ensemble_classifier.py:
