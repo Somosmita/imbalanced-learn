@@ -176,7 +176,10 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_X_y</span><span class="p">,</span> <span class="n">check_random_state</span><span class="p">,</span> <span class="n">safe_indexing</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_array</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_consistent_length</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_random_state</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">safe_indexing</span>
 
 <span class="kn">from</span> <span class="nn">..base</span> <span class="k">import</span> <span class="n">BaseUnderSampler</span>
 <span class="kn">from</span> <span class="nn">...utils</span> <span class="k">import</span> <span class="n">check_target_type</span>
@@ -257,7 +260,10 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">y</span><span class="p">,</span> <span class="n">binarize_y</span> <span class="o">=</span> <span class="n">check_target_type</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">indicate_one_vs_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="s1">&#39;csc&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="s1">&#39;csc&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="s1">&#39;csc&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">ensure_2d</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">check_consistent_length</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">binarize_y</span>
 
     <span class="k">def</span> <span class="nf">_fit_resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
